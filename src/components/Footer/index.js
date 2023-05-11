@@ -20,7 +20,7 @@ function Footer() {
         <div className="sm:w-5/12 flex flex-col justify-start text-left sm:pb-20 pt-5">
           <Image src={Logo} alt="logo" className="md:mt-0 mt-2 h-1/4 w-28" />
           <p className="text-zinc-500 mt-5">
-            Lorem Ipsum has been the industry's standard dummy text ever since
+            Lorem Ipsum has been the industrys standard dummy text ever since
             the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book.
           </p>

@@ -16,7 +16,7 @@ export default function QuemSomos() {
           <strong className="text-lg mb-10">Escolher?</strong>
           <p className="mt-5">
             Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's
+            typesetting industry. Lorem Ipsum has been the industrys
             standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type
             specimen book.
@@ -26,7 +26,7 @@ export default function QuemSomos() {
           </button>
         </div>
         <div className="w-full sm:h-fit h-full flex items-center justify-center">
-          <Image src={impresilk} className="object-cover" />
+          <Image src={impresilk} alt='logo' className="object-cover" />
         </div>
       </div>
     </div>

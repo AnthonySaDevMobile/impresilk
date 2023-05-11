@@ -41,7 +41,7 @@ export default function Coments() {
         <p className="-rotate-90  text-3xl font-bold">{name}</p>
       </div>
       <div className="w-[430px] h-[600px]">
-        <Image src={photo} className="object-cover w-[430px] h-[600px]" />
+        <Image src={photo} alt="fotoperfil" className="object-cover w-[430px] h-[600px]" />
       </div>
       </div>
 
@@ -62,7 +62,7 @@ export default function Coments() {
               </p>
               <p className="">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industrys standard dummy
                 text ever since the 1500s
               </p>
 
@@ -109,7 +109,7 @@ export default function Coments() {
               </p>
               <p className="">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industrys standard dummy
                 text ever since the 1500s
               </p>
 
@@ -156,7 +156,7 @@ export default function Coments() {
               </p>
               <p className="">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industrys standard dummy
                 text ever since the 1500s
               </p>
 
@@ -195,6 +195,7 @@ export default function Coments() {
                 <div className="w-[64px] h-[64px] bg-zinc-300 rounded-full absolute -top-12">
                   <Image
                     src={perfil1}
+                    alt="perfil"
                     className="object-cover rounded-full w-[64px] h-[64px]"
                   />
                 </div>
@@ -207,6 +208,7 @@ export default function Coments() {
                 <div className="w-[64px] h-[64px] bg-zinc-300 rounded-full absolute -top-12">
                   <Image
                     src={perfil2}
+                    alt="perfil"
                     className="object-cover rounded-full w-[64px] h-[64px]"
                   />
                 </div>
@@ -219,6 +221,7 @@ export default function Coments() {
                 <div className="w-[64px] h-[64px] bg-zinc-300 rounded-full absolute -top-12">
                   <Image
                     src={perfil3}
+                    alt="perfil"
                     className="object-cover rounded-full w-[64px] h-[64px]"
                   />
                 </div>

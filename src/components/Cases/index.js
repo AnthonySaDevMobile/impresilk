@@ -12,6 +12,7 @@ export default function Cases() {
     <div className="bg-bg-slide relative w-full h-fit md:pb-20 pb-16 text-white" id="cases">
     <Image
       src={caseBackground}
+      alt='caseBackground'
       className="w-full inset-0 absolute opacity-20 h-full object-cover brightness-50"
     />
     <div className="sm:w-9/12 sm:m-auto pt-10">
@@ -40,7 +41,7 @@ export default function Cases() {
           </div>
           <div className="sm:w-[700px] w-full sm:h-[400px] h-[200px] md:mt-0 mt-5 bg-white relative">
             <div className="ml-10 sm:h-1/4 h-[50px] ">
-              <Image src={tag} className="object-cover" />
+              <Image src={tag} className="object-cover" alt='tag'/>
               <div className="absolute px-2 sm:top-3 top-5 flex flex-col items-center text-center">
                 <FaStar color="white" />
                 <p className="text-xl">5.0</p>

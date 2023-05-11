@@ -10,7 +10,7 @@ import {
 export default function Mapa() {
   return (
     <div className="md:h-fit h-40 relative w-full">
-    <Image src={mapa} className="object-cover h-full w-full" />
+    <Image src={mapa}alt='mapa' className="object-cover h-full w-full" />
     <div className="bg-blue-700 w-2/5 md:w-1/4 p-2 md:p-4 absolute top-0 md:top-1/4 md:left-20 flex justify-between">
       <div>
         <div className="text-white text-xs">
