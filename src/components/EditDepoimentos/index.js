@@ -51,6 +51,9 @@ export default function EditDepoimentos() {
   const [depoiments, setDepoiments] = useState([]);
   const [depoiments2, setDepoiments2] = useState([]);
   const [depoiments3, setDepoiments3] = useState([]);
+  const [textButton, setTextButton] = useState("Enviar alterações")
+  const [textButton2, setTextButton2] = useState("Enviar alterações")
+  const [textButton3, setTextButton3] = useState("Enviar alterações")
 
   const depoimentCollectionRef = collection(db, "depoimentos");
 
@@ -111,7 +114,7 @@ export default function EditDepoimentos() {
         return null;
       }
     }
-    console.log(typeof imageAvatarDepoimento);
+    setTextButton("Enviar alterações")
   }
   function handleFileDepoimento2(e) {
     if (e.target.files[0]) {
@@ -126,6 +129,7 @@ export default function EditDepoimentos() {
         return null;
       }
     }
+    setTextButton2("Enviar alterações")
   }
   function handleFileDepoimento3(e) {
     if (e.target.files[0]) {
@@ -140,10 +144,13 @@ export default function EditDepoimentos() {
         return null;
       }
     }
+    setTextButton3("Enviar alterações");
+
   }
 
   async function handleSave(e) {
     e.preventDefault();
+    setTextButton("Enviando...")
     const depoimento = depoiments[0];
     const depoimentRef = doc(db, "depoimentos", depoimentId1);
     handleUpload();
@@ -170,9 +177,11 @@ export default function EditDepoimentos() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton("Enviado!")
   }
   async function handleSave2(e) {
     e.preventDefault();
+    setTextButton2("Enviando...");
     const depoimento = depoiments2[0];
     const depoimentRef2 = doc(db, "depoimentos", depoimentId2);
     handleUpload2();
@@ -199,9 +208,11 @@ export default function EditDepoimentos() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton2("Enviado!");
   }
   async function handleSave3(e) {
     e.preventDefault();
+    setTextButton3("Enviando...");
     const depoimento = depoiments3[0];
     const depoimentRef3 = doc(db, "depoimentos", depoimentId3);
     handleUpload3();
@@ -227,6 +238,7 @@ export default function EditDepoimentos() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton3("Enviado!");
   }
 
   async function handleUpload() {
@@ -367,7 +379,7 @@ export default function EditDepoimentos() {
             </div>
           </div>
           <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-            Enviar alterações
+            {textButton}
           </button>
         </form>
       ))}{" "}
@@ -466,7 +478,7 @@ export default function EditDepoimentos() {
             </div>
           </div>
           <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-            Enviar alterações
+           {textButton2}
           </button>
         </form>
       ))}
@@ -565,7 +577,7 @@ export default function EditDepoimentos() {
             </div>
           </div>
           <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-            Enviar alterações
+            {textButton3}
           </button>
         </form>
       ))}

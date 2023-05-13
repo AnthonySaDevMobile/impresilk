@@ -13,6 +13,9 @@ export default function EditHome() {
   const [homeImages, setHomeImages] = useState([]);
   const [homeImages2, setHomeImages2] = useState([]);
   const [homeImages3, setHomeImages3] = useState([]);
+  const [textButton, setTextButton] = useState("Enviar alterações")
+  const [textButton2, setTextButton2] = useState("Enviar alterações")
+  const [textButton3, setTextButton3] = useState("Enviar alterações")
 
 
   const homeId = "6hYDsWi1IXapb6szieMF";
@@ -102,6 +105,7 @@ export default function EditHome() {
 
   async function handleSave(e) {
     e.preventDefault();
+    setTextButton("Enviando...");
     const home = homeImages[0];
     const homeRef = doc(db, "home", homeId);
   
@@ -118,6 +122,7 @@ export default function EditHome() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton("Enviado!");
   }
   
   async function handleUpload() {
@@ -144,6 +149,7 @@ export default function EditHome() {
   
   async function handleSave2(e) {
     e.preventDefault();
+    setTextButton2("Enviando...");
     const home = homeImages2[0];
     const homeRef = doc(db, "home", homeId2);
     await handleUpload2();
@@ -159,6 +165,7 @@ export default function EditHome() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton2("Enviado!");
   }
 
   async function handleUpload2() {
@@ -175,6 +182,7 @@ export default function EditHome() {
   }
   async function handleSave3(e) {
     e.preventDefault();
+    setTextButton3("Enviando...");
     const home = homeImages3[0];
     const homeRef = doc(db, "home", homeId3);
     await handleUpload3();
@@ -190,6 +198,7 @@ export default function EditHome() {
       .catch((e) => {
         console.log("erro:" + e);
       });
+    setTextButton3("Enviado!");
   }
 
   async function handleUpload3() {
@@ -236,7 +245,7 @@ export default function EditHome() {
               />
             )}
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-              Enviar alterações
+              {textButton}
             </button>
           </div>
         </form>
@@ -265,7 +274,7 @@ export default function EditHome() {
               />
             )}
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-              Enviar alterações
+              {textButton2}
             </button>
           </div>
          </form>
@@ -295,7 +304,7 @@ export default function EditHome() {
               />
             )}
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
-              Enviar alterações
+              {textButton3}
             </button>
           </div>
         </form>
