@@ -24,9 +24,9 @@ export default function Home() {
       <main>
         <div id="home">
           <CarouselHome />
-          <div className="absolute text-white sm:text-4xl text-xl z-10 md:top-1/3 top-1/4 left-1/4 text-center right-1/2 w-1/2">
+          <div className="absolute text-white sm:text-4xl text-xl z-10 sm:top-1/3 top-1/4 left-1/4 text-center right-1/2 w-1/2">
             <p className="font-extralight py-5">Sua fachada representa</p>
-            <strong className="py-5 font-extrabold sm:text-5xl text-2xl">
+            <strong className="py-5 font-extrabold sm:text-5xl text-4xl">
               seu negócio?
             </strong>
             <p className="text-xs sm:tracking-widest tracking-normal py-5">
@@ -37,7 +37,7 @@ export default function Home() {
                 href="https://api.whatsapp.com/send?phone=38999337788"
                 target="_blank"
               >
-                <p className="mt-2 bg-bg-whats w-fit px-2 py-4 font-extrabold rounded-xl text-xs">
+                <p className="mt-2 bg-bg-whats w-fit px-2 py-3 font-extrabold rounded-xl text-xs">
                   FALE PELO WHATSAPP
                 </p>
               </Link>

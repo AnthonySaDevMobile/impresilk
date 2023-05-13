@@ -9,7 +9,7 @@ import caseBackground from "../../../public/caseBackground.jpg";
 
 export default function Cases() {
   return (
-    <div className="bg-bg-slide relative w-full h-fit md:pb-20 pb-16 text-white" id="cases">
+    <div className="bg-bg-slide relative w-full md:px-0 px-2 h-fit md:pb-20 pb-16 text-white" id="cases">
     <Image
       src={caseBackground}
       alt='caseBackground'

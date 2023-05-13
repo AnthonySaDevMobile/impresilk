@@ -1,16 +1,27 @@
-import React, { useRef, useState } from "react";
-import Image from "next/image";
-import image1 from "../../../public/carouselHome1.jpg";
-import image2 from "../../../public/carouselHome4.jpg";
-import image3 from "../../../public/carouselHome2.jpg";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import {FaArrowCircleLeft, FaArrowCircleRight} from 'react-icons/fa'
-
 import { Pagination, Navigation, Autoplay,A11y } from "swiper";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/services/firebaseConnection";
 
 export default function CarouselHome() {
+  
+  const depoimentCollectionRef = collection(db, "home");
+  const [homeImages, setHomeImages] = useState([])
+
+  useEffect(() => {
+    const getHomeImages = async () => {
+      const data = await getDocs(depoimentCollectionRef);
+      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setHomeImages(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getHomeImages();
+  }, []);
+
+  
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [_, setInit] = useState();
@@ -42,27 +53,18 @@ export default function CarouselHome() {
         onInit={() => setInit(true)}
         className="w-full h-screen pb-10"
       >
-        <SwiperSlide className="bg-bg-slide">
-          <Image
-            src={image1}
+       {homeImages.map((imagem)=>(
+        <SwiperSlide key={imagem.id} className="bg-bg-slide">
+          <img
+            src={imagem.imagem}
             alt="carousel-image"
             className="w-full inset-0 opacity-60 h-full object-cover brightness-50"
           />
         </SwiperSlide>
-        <SwiperSlide className="bg-bg-slide">
-          <Image
-            src={image2}
-            alt="carousel-image"
-            className="w-full h-full inset-0 opacity-60 object-cover  brightness-50"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="bg-bg-slide">
-          <Image
-            src={image3}
-            alt="carousel-image"
-            className="w-full h-full inset-0 opacity-60 object-cover  brightness-50"
-          />
-        </SwiperSlide>
+       ))}
+
+        
+        
       </Swiper>
       <button ref={prevRef} className="cursor-pointer absolute top-1/2 sm:left-20 left-0 z-10">
       <FaArrowCircleLeft color="white" size={32} className="opacity-20"/>
