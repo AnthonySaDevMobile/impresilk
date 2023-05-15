@@ -203,7 +203,7 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
-        <button className=" text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
+        <button className=" w-1/4 m-auto text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
           VER TUDO
         </button>
       </div>
