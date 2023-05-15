@@ -28,7 +28,6 @@ export default function EditHome() {
   useEffect(() => {
     const getHomeImages = async () => {
       const data = await getDocs(homeCollectionRef);
-      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setHomeImages([
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
       ]);
@@ -59,7 +58,7 @@ export default function EditHome() {
         return null;
       }
     }
-    console.log(typeof imageAvatarHome);
+    setTextButton("Enviar alterações")
   }
 
   function handleFileHome2(e) {
@@ -79,7 +78,8 @@ export default function EditHome() {
         return null;
       }
     }
-    console.log(typeof imageAvatarHome);
+    setTextButton2("Enviar alterações")
+
   }
 
   function handleFileHome3(e) {
@@ -99,7 +99,8 @@ export default function EditHome() {
         return null;
       }
     }
-    console.log(typeof imageAvatarHome);
+    setTextButton3("Enviar alterações")
+
   }
 
 
@@ -126,21 +127,11 @@ export default function EditHome() {
   }
   
   async function handleUpload() {
-    if (imageAvatarHome !== null) {
+    if (avatarUrlHome !== null) {
       const imagesRef = ref(storage, `imagesHome/${homeId}`);
-  
-      // Create a metadata object with the contentType set to the appropriate image type
-      const metadata = {
-        contentType: imageAvatarHome.type === "image/jpeg" ? "image/jpeg" : "image/png"
-      };
-  
-      // Upload the image with the metadata object
-      const snapshot = await uploadBytes(imagesRef, imageAvatarHome, metadata);
-  
-      // Get the download URL for the uploaded image
-      const url = await getDownloadURL(imagesRef);
-  
-      // Set avatarUrlHome to the Firebase Storage download URL
+      await uploadBytes(imagesRef, imageAvatarHome).then((snapshot) => {
+      });
+      const url = await getDownloadURL(ref(storage, `imagesHome/${homeId}`));
       setAvatarUrlHome(url);
     } else {
       return null;
@@ -169,7 +160,7 @@ export default function EditHome() {
   }
 
   async function handleUpload2() {
-    if (avatarUrlHome3 !== null) {
+    if (avatarUrlHome2 !== null) {
       const imagesRef = ref(storage, `imagesHome/${homeId2}`);
       await uploadBytes(imagesRef, imageAvatarHome2).then((snapshot) => {
         console.log("Uploaded 2!");
@@ -202,10 +193,9 @@ export default function EditHome() {
   }
 
   async function handleUpload3() {
-    if (avatarUrlHome !== null) {
+    if (avatarUrlHome3 !== null) {
       const imagesRef = ref(storage, `imagesHome/${homeId3}`);
       await uploadBytes(imagesRef, imageAvatarHome3).then((snapshot) => {
-        console.log("Uploaded 3!");
       });
       const url = await getDownloadURL(ref(storage, `imagesHome/${homeId3}`));
       setAvatarUrlHome3(url);

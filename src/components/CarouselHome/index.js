@@ -9,19 +9,17 @@ import { db } from "@/services/firebaseConnection";
 
 export default function CarouselHome() {
   
-  const depoimentCollectionRef = collection(db, "home");
+  const homeCollectionRef = collection(db, "home");
   const [homeImages, setHomeImages] = useState([])
 
   useEffect(() => {
     const getHomeImages = async () => {
-      const data = await getDocs(depoimentCollectionRef);
-      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const data = await getDocs(homeCollectionRef);
       setHomeImages(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getHomeImages();
   }, []);
 
-  
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [_, setInit] = useState();
@@ -43,7 +41,7 @@ export default function CarouselHome() {
         loop={true}
         modules={[Navigation, Pagination, Autoplay, A11y]}
         autoplay={{
-          delay: 3000,
+          delay: 2000,
         }}
         navigation={{
           prevEl: prevRef.current,

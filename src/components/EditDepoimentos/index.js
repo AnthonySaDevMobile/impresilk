@@ -64,7 +64,6 @@ export default function EditDepoimentos() {
   useEffect(() => {
     const getDepoiments = async () => {
       const data = await getDocs(depoimentCollectionRef);
-      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setDepoiments([
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
       ]);
