@@ -36,7 +36,7 @@ const ScrollCasesHorizontal = () => {
   }
 
   return (
-    <div className="h-96 flex items-center flex-col">
+    <div className="h-96 pb-5 flex items-center flex-col">
       <Swiper
         direction="horizontal"
         slidesPerView={1}
@@ -49,7 +49,7 @@ const ScrollCasesHorizontal = () => {
           hide: false,
         }}
         modules={{ Scrollbar, Mousewheel }}
-        className="h-[400px] w-full flex flex-col justify-start items-start"
+        className="h-[350px] w-full flex flex-col justify-start items-start"
       >
         {cases.map((item, index) => (
           <SwiperSlide key={item.id}>
@@ -85,7 +85,7 @@ const ScrollCasesHorizontal = () => {
       </div>
 
       <div
-        className="w-[400px] h-[600px] md:mt-0 mt-5 bg-white relative"
+        className="w-full h-[600px] md:mt-0 mt-5 bg-white relative"
         style={{
           backgroundImage: `url(${casesForBox?.imagem})`,
           backgroundSize: "cover",

@@ -309,7 +309,7 @@ export default function EditPortfolio() {
     const portfolio = portfolioImages[0];
     const portfolioRef = doc(db, "portfolio", portfolioId);
 
-    await handleUpload();
+     handleUpload();
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
@@ -345,7 +345,7 @@ export default function EditPortfolio() {
     setTextButton2("Enviando...");
     const portfolio = portfolioImages2[0];
     const portfolioRef = doc(db, "portfolio", portfolioId2);
-    await handleUpload2();
+     handleUpload2();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       imagem: avatarUrlPortfolio2Firebase || portfolio.imagem,
@@ -382,7 +382,7 @@ export default function EditPortfolio() {
     setTextButton3("Enviando...");
     const portfolio = portfolioImages3[0];
     const portfolioRef = doc(db, "portfolio", portfolioId3);
-    await handleUpload3();
+     handleUpload3();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       imagem: avatarUrlPortfolio3Firebase || portfolio.imagem,
@@ -420,7 +420,7 @@ export default function EditPortfolio() {
     const portfolio = portfolioImages4[0];
     const portfolioRef = doc(db, "portfolio", portfolioId4);
 
-    await handleUpload4();
+     handleUpload4();
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
@@ -494,7 +494,7 @@ export default function EditPortfolio() {
     setTextButton6("Enviando...");
     const portfolio = portfolioImages6[0];
     const portfolioRef = doc(db, "portfolio", portfolioId6);
-    await handleUpload6();
+     handleUpload6();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       imagem: avatarUrlPortfolio6Firebase || portfolio.imagem,
@@ -531,7 +531,7 @@ export default function EditPortfolio() {
     setTextButton7("Enviando...");
     const portfolio = portfolioImages7[0];
     const portfolioRef = doc(db, "portfolio", portfolioId7);
-    await handleUpload7();
+     handleUpload7();
     const updatedData = {
       imagem: avatarUrlPortfolio7Firebase || portfolio.imagem,
     };
@@ -566,7 +566,7 @@ export default function EditPortfolio() {
     setTextButton8("Enviando...");
     const portfolio = portfolioImages8[0];
     const portfolioRef = doc(db, "portfolio", portfolioId8);
-    await handleUpload8();
+     handleUpload8();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       imagem: avatarUrlPortfolio8Firebase || portfolio.imagem,
@@ -603,7 +603,7 @@ export default function EditPortfolio() {
     setTextButton9("Enviando...");
     const portfolio = portfolioImages9[0];
     const portfolioRef = doc(db, "portfolio", portfolioId9);
-    await handleUpload9();
+     handleUpload9();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       imagem: avatarUrlPortfolio9Firebase || portfolio.imagem,

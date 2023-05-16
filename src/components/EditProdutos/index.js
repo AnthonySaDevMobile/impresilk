@@ -39,7 +39,7 @@ export default function EditProdutos() {
   async function sendProdutos(e) {
     e.preventDefault();
     setTextButton("Enviando...");
-    await handleUpload();
+     handleUpload();
     await addDoc(collection(db, "produtos"), {
       categoria: categoria,
       caracteristica: caracteristica,
@@ -58,7 +58,7 @@ export default function EditProdutos() {
     setCaracteristica("");
     setCategoria("");
     setImageAvatarProdutos(null);
-    setAvatarUrlProdutosFirebase("");
+    setAvatarUrlProdutos("");
   }
 
   async function handleUpload() {
