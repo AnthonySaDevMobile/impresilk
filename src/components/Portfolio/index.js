@@ -79,7 +79,7 @@ export default function Portfolio() {
         selected = portfolioImages2.find((foto) => foto.id === id);
         break;
 
-      case "portfolio=3":
+      case "portfolio3":
         selected = portfolioImages3.find((foto) => foto.id === id);
         break;
 
