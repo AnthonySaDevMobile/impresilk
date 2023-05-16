@@ -13,6 +13,7 @@ export default function Admin() {
 useAuth();
   return (
     <div>
+      
       <main className="flex flex-col ">
         <div className="pt-20 pb-10 flex flex-col items-center justify-center gap-4 bg-zinc-500">
           <h1 className="tracking-widest text-lg text-center text-white">

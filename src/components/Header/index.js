@@ -8,10 +8,11 @@ export default function Header() {
 
   return (
     <header
-      className="sm:w-full top-0 py-10 text-white text-xs  z-30 lg:tracking-widest items-center flex fixed"
+      className="w-full top-0 py-10 text-white text-xs z-30 lg:tracking-widest items-center  flex justify-between px-8 fixed"
       style={{background:"linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))"}}
     >
-      <div className="flex items-center m-auto sm:gap-10 gap-8 w-9/12 sm:m-auto sm:flex sm:justify-between">
+      
+      <div className="flex items-center md:m-auto sm:gap-10 gap-8 md:w-9/12 sm:m-auto sm:flex justify-between">
         <Link href="/#home">
           <Image
             src={Logo}
@@ -52,9 +53,9 @@ export default function Header() {
         </nav>
       </div>
 
-      <section className="MOBILE-MENU flex w-96 text-right md:hidden" scroll={false}>
+      <section className="MOBILE-MENU flex  text-right md:hidden" scroll={false}>
         <div
-          className="space-y-2 max-[320px]:ml-28 ml-44"
+          className="space-y-2"
           onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
         >
           <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
