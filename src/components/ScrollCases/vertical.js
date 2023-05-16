@@ -55,7 +55,7 @@ const ScrollCasesVertical = () => {
           className="h-[400px] w-full"
         >
           {cases.map((item, index) => (
-            <SwiperSlide>
+            <SwiperSlide key={item.id}>
               <div
                 onClick={() => handleBox(index)}
                 className="bg-bg-item h-32 mx-10 p-3 gap-2 flex items-center justify-evenly"

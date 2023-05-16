@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Link from "next/link";
 
 export default function EditProdutos() {
   const produtosRef = collection(db, "produtos");
@@ -167,7 +168,7 @@ export default function EditProdutos() {
         <p>Produtos já cadastrados:</p>
 
         {produtos.map((item) => (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center" key={item.id}>
             <div className="flex mt-5 justify-around p-4 bg-white">
               <div className="h-[250px] w-[240px] bg-zinc-200">
                 <img
@@ -184,12 +185,24 @@ export default function EditProdutos() {
                   {item.caracteristica}
                 </p>
                 <p className="text-zinc-500 mt-5 text-sm">{item.descricao}</p>
-                <button className="mt-5 bg-zinc-200 text-zinc-500 md:px-5 px-1 py-2 rounded-xl text-xs">
-                  ORÇAMENTO
-                </button>
+                <Link
+                  href={`https://api.whatsapp.com/send?phone=38999337788&text=Orçamento para ${encodeURIComponent(
+                    item.categoria
+                  )}, ${encodeURIComponent(
+                    item.caracteristica
+                  )}, ${encodeURIComponent(item.descricao)}`}
+                  target="_blank"
+                >
+                  <button className="mt-5 bg-zinc-200 text-zinc-500 md:px-5 px-1 py-2 rounded-xl text-xs">
+                    ORÇAMENTO
+                  </button>
+                </Link>
               </div>
             </div>
-            <span className="mt-5 flex gap-2" onClick={() => deleteItem(item.id)}>
+            <span
+              className="mt-5 flex gap-2"
+              onClick={() => deleteItem(item.id)}
+            >
               <FaTrash color="red" size={30} />
               <p className="font-extrabold">Deletar</p>
             </span>

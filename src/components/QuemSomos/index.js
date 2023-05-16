@@ -49,7 +49,7 @@ export default function QuemSomos() {
             <strong className="text-lg mb-10">Escolher?</strong>
 
             {texts.map((item) => (
-              <div>
+              <div key={item.id}>
                 <p className="mt-5">{item.texto}</p>
                 <button
                   onClick={openModal}
