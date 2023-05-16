@@ -23,6 +23,15 @@ export default function EditPortfolio() {
   const [avatarUrlPortfolio7, setAvatarUrlPortfolio7] = useState("");
   const [avatarUrlPortfolio8, setAvatarUrlPortfolio8] = useState("");
   const [avatarUrlPortfolio9, setAvatarUrlPortfolio9] = useState("");
+  const [avatarUrlPortfolioFirebase, setAvatarUrlPortfolioFirebase] = useState("");
+  const [avatarUrlPortfolio2Firebase, setAvatarUrlPortfolio2Firebase] = useState("");
+  const [avatarUrlPortfolio3Firebase, setAvatarUrlPortfolio3Firebase] = useState("");
+  const [avatarUrlPortfolio4Firebase, setAvatarUrlPortfolio4Firebase] = useState("");
+  const [avatarUrlPortfolio5Firebase, setAvatarUrlPortfolio5Firebase] = useState("");
+  const [avatarUrlPortfolio6Firebase, setAvatarUrlPortfolio6Firebase] = useState("");
+  const [avatarUrlPortfolio7Firebase, setAvatarUrlPortfolio7Firebase] = useState("");
+  const [avatarUrlPortfolio8Firebase, setAvatarUrlPortfolio8Firebase] = useState("");
+  const [avatarUrlPortfolio9Firebase, setAvatarUrlPortfolio9Firebase] = useState("");
   const [portfolioImages, setPortfolioImages] = useState([]);
   const [portfolioImages2, setPortfolioImages2] = useState([]);
   const [portfolioImages3, setPortfolioImages3] = useState([]);
@@ -304,7 +313,7 @@ export default function EditPortfolio() {
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
-      imagem: avatarUrlPortfolio || portfolio.imagem,
+      imagem: avatarUrlPortfolioFirebase || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -323,7 +332,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId}`)
       );
-      setAvatarUrlPortfolio(url);
+      setAvatarUrlPortfolioFirebase(url);
     } else {
       return null;
     }
@@ -339,7 +348,7 @@ export default function EditPortfolio() {
     await handleUpload2();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio2 || portfolio.imagem,
+      imagem: avatarUrlPortfolio2Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -361,7 +370,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId2}`)
       );
-      setAvatarUrlPortfolio2(url);
+      setAvatarUrlPortfolio2Firebase(url);
     } else {
       return null;
     }
@@ -376,7 +385,7 @@ export default function EditPortfolio() {
     await handleUpload3();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio3 || portfolio.imagem,
+      imagem: avatarUrlPortfolio3Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -398,7 +407,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId3}`)
       );
-      setAvatarUrlPortfolio3(url);
+      setAvatarUrlPortfolio3Firebase(url);
     } else {
       return null;
     }
@@ -415,7 +424,7 @@ export default function EditPortfolio() {
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
-      imagem: avatarUrlPortfolio4 || portfolio.imagem,
+      imagem: avatarUrlPortfolio4Firebase || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -436,7 +445,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId4}`)
       );
-      setAvatarUrlPortfolio4(url);
+      setAvatarUrlPortfolio4Firebase(url);
     } else {
       return null;
     }
@@ -451,7 +460,7 @@ export default function EditPortfolio() {
     await handleUpload5();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio5 || portfolio.imagem,
+      imagem: avatarUrlPortfolio5Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -473,7 +482,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId5}`)
       );
-      setAvatarUrlPortfolio5(url);
+      setAvatarUrlPortfolio5Firebase(url);
     } else {
       return null;
     }
@@ -488,7 +497,7 @@ export default function EditPortfolio() {
     await handleUpload6();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio6 || portfolio.imagem,
+      imagem: avatarUrlPortfolio6Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -510,7 +519,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId6}`)
       );
-      setAvatarUrlPortfolio6(url);
+      setAvatarUrlPortfolio6Firebase(url);
     } else {
       return null;
     }
@@ -524,7 +533,7 @@ export default function EditPortfolio() {
     const portfolioRef = doc(db, "portfolio", portfolioId7);
     await handleUpload7();
     const updatedData = {
-      imagem: avatarUrlPortfolio7 || portfolio.imagem,
+      imagem: avatarUrlPortfolio7Firebase || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -545,7 +554,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId7}`)
       );
-      setAvatarUrlPortfolio7(url);
+      setAvatarUrlPortfolio7Firebase(url);
     } else {
       return null;
     }
@@ -560,7 +569,7 @@ export default function EditPortfolio() {
     await handleUpload8();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio8 || portfolio.imagem,
+      imagem: avatarUrlPortfolio8Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -582,7 +591,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId8}`)
       );
-      setAvatarUrlPortfolio8(url);
+      setAvatarUrlPortfolio8Firebase(url);
     } else {
       return null;
     }
@@ -597,7 +606,7 @@ export default function EditPortfolio() {
     await handleUpload9();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio9 || portfolio.imagem,
+      imagem: avatarUrlPortfolio9Firebase || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -619,7 +628,7 @@ export default function EditPortfolio() {
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId9}`)
       );
-      setAvatarUrlPortfolio9(url);
+      setAvatarUrlPortfolio9Firebase(url);
     } else {
       return null;
     }

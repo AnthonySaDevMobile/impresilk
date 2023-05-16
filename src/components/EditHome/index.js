@@ -11,6 +11,9 @@ export default function EditHome() {
   const [avatarUrlHome, setAvatarUrlHome] = useState("");
   const [avatarUrlHome2, setAvatarUrlHome2] = useState("");
   const [avatarUrlHome3, setAvatarUrlHome3] = useState("");
+  const [avatarUrlHomeFirebase, setAvatarUrlHomeFirebase] = useState("");
+  const [avatarUrlHome2Firebase, setAvatarUrlHome2Firebase] = useState("");
+  const [avatarUrlHome3Firebase, setAvatarUrlHome3Firebase] = useState("");
   const [homeImages, setHomeImages] = useState([]);
   const [homeImages2, setHomeImages2] = useState([]);
   const [homeImages3, setHomeImages3] = useState([]);
@@ -115,7 +118,7 @@ export default function EditHome() {
   
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
-      imagem: avatarUrlHome || home.imagem,
+      imagem: avatarUrlHomeFirebase || home.imagem,
     };
     await setDoc(homeRef, updatedData)
       .then(() => {
@@ -133,7 +136,7 @@ export default function EditHome() {
       await uploadBytes(imagesRef, imageAvatarHome).then((snapshot) => {
       });
       const url = await getDownloadURL(ref(storage, `imagesHome/${homeId}`));
-      setAvatarUrlHome(url);
+      setAvatarUrlHomeFirebase(url);
     } else {
       return null;
     }
@@ -147,7 +150,7 @@ export default function EditHome() {
     await handleUpload2();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlHome2 || home.imagem,
+      imagem: avatarUrlHome2Firebase || home.imagem,
     };
 
     await setDoc(homeRef, updatedData)
@@ -167,7 +170,7 @@ export default function EditHome() {
         console.log("Uploaded 2!");
       });
       const url = await getDownloadURL(ref(storage, `imagesHome/${homeId2}`));
-      setAvatarUrlHome2(url);
+      setAvatarUrlHome2Firebase(url);
     } else {
       return null;
     }
@@ -180,7 +183,7 @@ export default function EditHome() {
     await handleUpload3();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlHome3 || home.imagem,
+      imagem: avatarUrlHome3Firebase || home.imagem,
     };
 
     await setDoc(homeRef, updatedData)
@@ -199,7 +202,7 @@ export default function EditHome() {
       await uploadBytes(imagesRef, imageAvatarHome3).then((snapshot) => {
       });
       const url = await getDownloadURL(ref(storage, `imagesHome/${homeId3}`));
-      setAvatarUrlHome3(url);
+      setAvatarUrlHome3Firebase(url);
     } else {
       return null;
     }

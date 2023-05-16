@@ -20,6 +20,7 @@ export default function EditProjetos() {
   const [mes, setMes] = useState("");
   const [textButton, setTextButton] = useState("Enviar alterações");
   const [avatarUrlProjetos, setAvatarUrlProjetos] = useState("");
+  const [avatarUrlProjetosFirebase, setAvatarUrlProjetosFirebase] = useState("");
   const [imageAvatarProjetos, setImageAvatarProjetos] = useState(null);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function EditProjetos() {
     await addDoc(collection(db, "projetos"), {
       dia: dia,
       mes: mes,
-      imagem: avatarUrlProjetos,
+      imagem: avatarUrlProjetosFirebase,
       dataCriacao: serverTimestamp()
     });
     setTextButton("Enviado!");
@@ -66,7 +67,7 @@ export default function EditProjetos() {
       const url = await getDownloadURL(
         ref(storage, `imagesProjetos/${imageAvatarProjetos.name}`)
       );
-      setAvatarUrlProjetos(url);
+      setAvatarUrlProjetosFirebase(url);
     } else {
       return null;
     }

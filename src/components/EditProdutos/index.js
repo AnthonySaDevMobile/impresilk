@@ -15,6 +15,7 @@ import Link from "next/link";
 export default function EditProdutos() {
   const produtosRef = collection(db, "produtos");
   const [avatarUrlProdutos, setAvatarUrlProdutos] = useState("");
+  const [avatarUrlProdutosFirebase, setAvatarUrlProdutosFirebase] = useState("");
   const [imageAvatarProdutos, setImageAvatarProdutos] = useState(null);
   const [produtos, setProdutos] = useState([]);
   const [categoria, setCategoria] = useState("");
@@ -43,7 +44,7 @@ export default function EditProdutos() {
       categoria: categoria,
       caracteristica: caracteristica,
       descricao: descricao,
-      imagem: avatarUrlProdutos,
+      imagem: avatarUrlProdutosFirebase,
     });
     setTextButton("Enviado!");
     const produtosQuery = query(collection(db, "produtos"));
@@ -57,7 +58,7 @@ export default function EditProdutos() {
     setCaracteristica("");
     setCategoria("");
     setImageAvatarProdutos(null);
-    setAvatarUrlProdutos("");
+    setAvatarUrlProdutosFirebase("");
   }
 
   async function handleUpload() {
@@ -70,7 +71,7 @@ export default function EditProdutos() {
       const url = await getDownloadURL(
         ref(storage, `imagesProdutos/${imageAvatarProdutos.name}`)
       );
-      setAvatarUrlProdutos(url);
+      setAvatarUrlProdutosFirebase(url);
     } else {
       return null;
     }

@@ -15,6 +15,7 @@ export default function EditCases() {
   const casesCollectionRef = collection(db, "cases");
 
   const [avatarUrlCases, setAvatarUrlCases] = useState("");
+  const [avatarUrlCasesFirebase, setAvatarUrlCasesFirebase] = useState("");
   const [imageAvatarCases, setImageAvatarCases] = useState(null);
   const [nome, setNome] = useState("");
   const [nome2, setNome2] = useState("");
@@ -45,7 +46,7 @@ export default function EditCases() {
       nota: nota,
       descricao: descricao,
       tempo: tempo,
-      imagem: avatarUrlCases,
+      imagem: avatarUrlCasesFirebase,
     });
     setTextButton("Enviado!");
     const casesQuery = query(collection(db, "cases"));
@@ -71,7 +72,7 @@ export default function EditCases() {
       const url = await getDownloadURL(
         ref(storage, `imagesCases/${imageAvatarCases.name}`)
       );
-      setAvatarUrlCases(url);
+      setAvatarUrlCasesFirebase(url);
     } else {
       return null;
     }

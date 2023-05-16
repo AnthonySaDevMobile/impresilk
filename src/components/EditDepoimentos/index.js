@@ -7,6 +7,9 @@ export default function EditDepoimentos() {
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [avatarUrl2, setAvatarUrl2] = useState(null);
   const [avatarUrl3, setAvatarUrl3] = useState(null);
+  const [avatarUrlFirebase, setAvatarUrlFirebase] = useState(null);
+  const [avatarUrl2Firebase, setAvatarUrl2Firebase] = useState(null);
+  const [avatarUrl3Firebase, setAvatarUrl3Firebase] = useState(null);
   const [avatarUrlsDepoimento, setAvatarUrlDepoimento] = useState("");
   const [imageAvatarDepoimento, setImageAvatarDepoimento] = useState(null);
   const [avatarUrlsDepoimento2, setAvatarUrlDepoimento2] = useState("");
@@ -163,7 +166,7 @@ export default function EditDepoimentos() {
       twitch: twitch || depoimento.twitch,
       google: google || depoimento.google,
       instagram: instagram || depoimento.instagram,
-      imagem: avatarUrl || depoimento.imagem,
+      imagem: avatarUrlFirebase || depoimento.imagem,
     };
 
     await setDoc(depoimentRef, updatedData)
@@ -194,7 +197,7 @@ export default function EditDepoimentos() {
       twitch: twitch2 || depoimento.twitch,
       google: google2 || depoimento.google,
       instagram: instagram2 || depoimento.instagram,
-      imagem: avatarUrl2 || depoimento.imagem,
+      imagem: avatarUrl2Firebase || depoimento.imagem,
     };
 
     await setDoc(depoimentRef2, updatedData)
@@ -225,7 +228,7 @@ export default function EditDepoimentos() {
       twitch: twitch3 || depoimento.twitch,
       google: google3 || depoimento.google,
       instagram: instagram3 || depoimento.instagram,
-      imagem: avatarUrl3 || depoimento.imagem,
+      imagem: avatarUrl3Firebase || depoimento.imagem,
     };
     await setDoc(depoimentRef3, updatedData)
       .then(() => {
@@ -244,7 +247,7 @@ export default function EditDepoimentos() {
         console.log("Uploaded 1!");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId1}`));
-      setAvatarUrl(url);
+      setAvatarUrlFirebase(url);
     } else {
       return null;
     }
@@ -257,7 +260,7 @@ export default function EditDepoimentos() {
         console.log("Uploaded 2!");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId2}`));
-      setAvatarUrl(url);
+      setAvatarUrlFirebase(url);
     } else {
       return null;
     }
@@ -270,7 +273,7 @@ export default function EditDepoimentos() {
         console.log("Uploaded 3");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId3}`));
-      setAvatarUrl3(url);
+      setAvatarUrl3Firebase(url);
     } else {
       return null;
     }

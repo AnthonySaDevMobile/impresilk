@@ -85,16 +85,16 @@ const ScrollCasesHorizontal = () => {
       </div>
 
       <div
-        className="w-[600px] h-[600px] md:mt-0 mt-5 bg-white relative"
+        className="w-[400px] h-[600px] md:mt-0 mt-5 bg-white relative"
         style={{
           backgroundImage: `url(${casesForBox?.imagem})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="ml-10 sm:h-1/4 h-[100px] w-[180px] relative">
-          <Image src={tag} className="object-cover bg-bottom w-[230px] h-[110px]" alt="tag" />
-          <div className=" flex flex-col items-center px-10 justify-center w-9/12 absolute top-0 sm:left-14 left-14 right-0 bottom-0">
+        <div className="ml-10 sm:h-1/4 h-[100px] w-[80px] relative">
+          <Image src={tag} className="object-cover bg-bottom w-[80px] h-[110px]" alt="tag" />
+          <div className=" flex flex-col items-center justify-center w-9/12 absolute top-0 pr-4 right-0 bottom-0">
             <FaStar color="white" />
             <p className="text-xl">{casesForBox?.nota}.0</p>
             <p className="text-xs">{casesForBox?.nome}</p>
