@@ -6,6 +6,11 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
+}
+
+html{
+  scroll-behavior: smooth;
 }
 
 .swiper-pagination{
@@ -44,6 +49,7 @@
   color: rgba(0, 0, 0, .5) !important;
   font-size: 18px !important;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all ease-in 1s !important;
 }
 .swiper-pagination-bullet-active-2{
   background-color: transparent !important;
@@ -53,6 +59,7 @@
   padding: 10px !important;
   color: #000 !important;
   position: relative !important;
+  transition: all ease-in 1s !important;
 }
 
 
@@ -75,4 +82,70 @@
 
 .react-tabs__tab-list {
   border: none !important;
+}
+
+.modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  z-index: 9999 !important;
+}
+
+.modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  z-index: 9998 !important;
+}
+
+.seu-modal {
+  position: absolute !important;
+  top: 60% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: white !important;
+  padding: 20px !important;
+  width: 700px !important;
+  max-width: 80% !important;
+  max-height: 70% !important;
+  text-align: center !important;
+  border-radius: 2rem !important;
+  overflow-y: auto !important;
+}
+
+.modal-title {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  margin-bottom: 10px !important;
+}
+
+.modal-text {
+  font-size: 16px !important;
+  color: black !important;
+}
+
+.modal-open {
+  overflow: hidden !important;
+}
+
+
+.seu-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }

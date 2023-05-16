@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaImage, FaPlayCircle, FaSearch, FaStar } from "react-icons/fa";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/services/firebaseConnection";
+import Modal from "react-modal";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 export default function Portfolio() {
   const portfolioCollectionRef = collection(db, "portfolio");
@@ -14,6 +18,23 @@ export default function Portfolio() {
   const [portfolioImages7, setPortfolioImages7] = useState([]);
   const [portfolioImages8, setPortfolioImages8] = useState([]);
   const [portfolioImages9, setPortfolioImages9] = useState([]);
+  const [showCarousel, setShowCarousel] = useState(false);
+  const allImages = [
+    ...portfolioImages,
+    ...portfolioImages2,
+    ...portfolioImages3,
+    ...portfolioImages4,
+    ...portfolioImages5,
+    ...portfolioImages6,
+    ...portfolioImages7,
+    ...portfolioImages8,
+    ...portfolioImages9,
+  ];
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   useEffect(() => {
     const getPortfolioImages = async () => {
       const data = await getDocs(portfolioCollectionRef);
@@ -47,12 +68,52 @@ export default function Portfolio() {
     };
     getPortfolioImages();
   }, []);
- 
 
-  function fullScreenView(id){
-    console.log(id);
-  }
+  const fullScreenView = (id, state) => {
+    let selected;
+    switch (state) {
+      case "portfolio1":
+        selected = portfolioImages.find((foto) => foto.id === id);
+        break;
+      case "portfolio2":
+        selected = portfolioImages2.find((foto) => foto.id === id);
+        break;
 
+      case "portfolio=3":
+        selected = portfolioImages3.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio4":
+        selected = portfolioImages4.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio5":
+        selected = portfolioImages5.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio6":
+        selected = portfolioImages6.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio7":
+        selected = portfolioImages7.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio8":
+        selected = portfolioImages8.find((foto) => foto.id === id);
+        break;
+
+      case "portfolio9":
+        selected = portfolioImages9.find((foto) => foto.id === id);
+        break;
+
+      default:
+        selected = null;
+    }
+
+    setSelectedImage(selected);
+    setIsFullScreen(true);
+  };
 
   return (
     <div className="bg-white w-full h-fit text-center" id="portifolio">
@@ -66,20 +127,7 @@ export default function Portfolio() {
         <p>&</p>
         <strong>Durável</strong>
       </div>
-      <div className="flex justify-center mt-5 gap-2">
-        <div className="flex items-center gap-1 md:text-base text-xs">
-          <FaStar />
-          <p>Todas as mídias</p>
-        </div>
-        <div className="flex items-center  gap-1">
-          <FaPlayCircle />
-          <p>Vídeos</p>
-        </div>
-        <div className="flex items-center  gap-1">
-          <FaImage />
-          <p>Fotos</p>
-        </div>
-      </div>
+
       <div className="bg-white flex flex-col h-fit">
         <div className="flex mt-10">
           {portfolioImages.map((foto) => (
@@ -89,34 +137,47 @@ export default function Portfolio() {
                 alt="image portfolio"
                 className="w-full h-full object-cover absolute "
               />
-                <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-                </div>
+              <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio1")}
+                />
+              </div>
             </div>
           ))}
           {portfolioImages2.map((foto) => (
             <div key={foto.id} className="relative w-2/4 h-36 md:h-56">
               <img
-               src={foto.imagem}
-               alt="image portfolio"
-               className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio2")}
+                />
               </div>
             </div>
           ))}
           {portfolioImages3.map((foto) => (
             <div key={foto.id} className="relative w-1/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
-             <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+              <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio3")}
+                />
               </div>
             </div>
           ))}
@@ -126,39 +187,51 @@ export default function Portfolio() {
           {portfolioImages4.map((foto) => (
             <div key={foto.id} className="relative w-1/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio4")}
+                />
               </div>
             </div>
           ))}
           {portfolioImages5.map((foto) => (
             <div key={foto.id} className="relative w-1/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio5")}
+                />
               </div>
             </div>
           ))}
           {portfolioImages6.map((foto) => (
             <div key={foto.id} className="relative w-2/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
- 
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio6")}
+                />
               </div>
             </div>
           ))}
@@ -167,46 +240,104 @@ export default function Portfolio() {
           {portfolioImages7.map((foto) => (
             <div key={foto.id} className="relative w-2/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio7")}
+                />
               </div>
             </div>
           ))}
           {portfolioImages8.map((foto) => (
             <div key={foto.id} className="relative w-2/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
-             <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)} />
-
+              <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio8")}
+                />
               </div>
             </div>
           ))}
           {portfolioImages9.map((foto) => (
             <div key={foto.id} className="relative w-1/4 h-36 md:h-56">
               <img
-            src={foto.imagem}
-            alt="image portfolio"
-            className="w-full h-full object-cover absolute "
+                src={foto.imagem}
+                alt="image portfolio"
+                className="w-full h-full object-cover absolute "
               />
-               <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
-                  <FaSearch color="white" size={30} className="absolute top-1/2 right-1/2" onClick={()=>fullScreenView(foto.id)}/>
+              <div className="relative bg-zinc-800 opacity-0 hover:opacity-100 hover:bg-opacity-70 w-full h-full z-20 transition-all ease-in delay-100">
+                <FaSearch
+                  color="white"
+                  size={30}
+                  className="absolute top-1/2 right-1/2"
+                  onClick={() => fullScreenView(foto.id, "portfolio9")}
+                />
               </div>
             </div>
           ))}
         </div>
-        <button className=" w-1/4 m-auto text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
+        <button
+          onClick={() => setShowCarousel(true)}
+          className=" md:w-1/4 m-auto text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10"
+        >
           VER TUDO
         </button>
       </div>
+      {isFullScreen && (
+        <Modal
+          isOpen={isFullScreen}
+          onRequestClose={() => setIsFullScreen(false)}
+          className="modal-overlay"
+          overlayClassName="modal-backdrop"
+        >
+          <img
+            src={selectedImage.imagem}
+            alt="image portfolio"
+            className="w-full h-full object-cover object-center"
+            onClick={() => setIsFullScreen(false)}
+          />
+        </Modal>
+      )}
+      {showCarousel && (
+        <div>
+          <button
+            onClick={() => setShowCarousel(false)}
+            className="bg-red-500 px-4 py-1 my-5 rounded text-white font-semibold "
+          >
+            FECHAR
+          </button>
+          <Slider
+            dots={true}
+            infinite={true}
+            slidesToShow={1}
+            slidesToScroll={1}
+          >
+            {allImages.map((foto) => (
+              <div key={foto.id} className="relative w-full h-[700px]">
+                <img
+                  src={foto.imagem}
+                  alt="image portfolio"
+                  className="w-full h-full absolute object-cover"
+                  style={{ objectPosition: "center" }}
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
     </div>
   );
 }

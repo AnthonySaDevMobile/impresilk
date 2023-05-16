@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import CarouselProducts from '../CarouselProducts'
 
+
 export default function Produtos() {
+
+
+
   return (
     <div id="produtos">
     <div className="w-full bg-zinc-100 pb-5 pt-10 md:h-fit">

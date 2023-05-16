@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { FaUpload } from "react-icons/fa";
 
 export default function EditHome() {
   const [imageAvatarHome, setImageAvatarHome] = useState(null);
@@ -28,9 +29,9 @@ export default function EditHome() {
   useEffect(() => {
     const getHomeImages = async () => {
       const data = await getDocs(homeCollectionRef);
-      setHomeImages([
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
-      ]);
+        setHomeImages([
+          data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0],
+        ]);
       setHomeImages2([
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[1],
       ]);
@@ -209,22 +210,26 @@ export default function EditHome() {
     <div className="bg-bg-slide text-center text-white py-10">
       <h1 className="text-3xl">Home</h1>
       <p>Alterações para as imagens exibidas</p>
-      <button>Chamar</button>
       <div className=" py-10">
         {homeImages.map((imagem) => (
         <form 
         key={imagem.id}
         onSubmit={handleSave}>
         <div
-            className="md:flex flex-row gap-4 items-center justify-center "
+            className="md:flex flex-col gap-4 items-center justify-center "
           >
-            <input type="file" onChange={(e) => handleFileHome(e)} />
+           <label className="w-[800px] m-auto h-[400px]  z-10 bg-blue-950 rounded flex items-center justify-center cursor-pointer">
+            <span className="absolute opacity-10">
+              <FaUpload size={30}/>
+            </span>
+           <input className="hidden" type="file" onChange={(e) => handleFileHome(e)} />
             {imageAvatarHome === null ? (
               <img
                 src={imagem.imagem}
                 width="250"
                 height="250"
                 alt="Foto da Home"
+                className="w-full h-full object-cover"
               />
             ) : (
               <img
@@ -233,7 +238,9 @@ export default function EditHome() {
                 height="250"
                 alt="Foto da Home"
               />
-            )}
+            )}  
+           </label>
+          
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
               {textButton}
             </button>
@@ -245,15 +252,20 @@ export default function EditHome() {
          key={imagem.id}
          onSubmit={handleSave2}>
          <div
-            className="md:flex flex-row gap-4 items-center justify-center "
+            className="md:flex flex-col gap-4 items-center justify-center "
           >
-            <input type="file" onChange={(e) => handleFileHome2(e)} />
+                      <label className="w-[800px] m-auto h-[400px]  z-10 bg-blue-950 rounded flex items-center justify-center cursor-pointer">
+            <span className="absolute opacity-10">
+              <FaUpload size={30}/>
+            </span>
+           <input className="hidden" type="file" onChange={(e) => handleFileHome2(e)} />
             {imageAvatarHome2 === null ? (
               <img
                 src={imagem.imagem}
                 width="250"
                 height="250"
                 alt="Foto da Home"
+                className="w-full h-full object-cover"
               />
             ) : (
               <img
@@ -262,7 +274,8 @@ export default function EditHome() {
                 height="250"
                 alt="Foto da Home"
               />
-            )}
+            )}  
+           </label>
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
               {textButton2}
             </button>
@@ -274,16 +287,20 @@ export default function EditHome() {
         key={imagem.id}
         onSubmit={handleSave3}>
         <div
-            className="md:flex flex-row gap-4 items-center justify-center "
+            className="md:flex flex-col gap-4 items-center justify-center "
           >
-            <input type="file" onChange={(e) => handleFileHome3(e)} />
-
+            <label className="w-[800px] m-auto h-[400px] z-10 bg-blue-950 rounded flex items-center justify-center cursor-pointer">
+            <span className="absolute opacity-10">
+              <FaUpload size={30}/>
+            </span>
+           <input className="hidden" type="file" onChange={(e) => handleFileHome3(e)} />
             {imageAvatarHome3 === null ? (
               <img
                 src={imagem.imagem}
                 width="250"
                 height="250"
                 alt="Foto da Home"
+                className="w-full h-full object-cover"
               />
             ) : (
               <img
@@ -292,7 +309,8 @@ export default function EditHome() {
                 height="250"
                 alt="Foto da Home"
               />
-            )}
+            )}  
+           </label>
             <button className="text-center bg-blue-800 px-14 py-3 rounded-3xl text-white text-sm mt-10 font-bold sm:drop-shadow-3xl drop-shadow-md mb-10">
               {textButton3}
             </button>

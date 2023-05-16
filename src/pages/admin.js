@@ -8,9 +8,9 @@ import EditCases from "@/components/EditCases";
 import EditProdutos from "@/components/EditProdutos";
 import EditPortfolio from "@/components/EditPortfolio";
 import EditDepoimentos from "@/components/EditDepoimentos";
-
+import { useAuth } from "@/utils/auth";
 export default function Admin() {
-
+useAuth();
   return (
     <div>
       <main className="flex flex-col ">

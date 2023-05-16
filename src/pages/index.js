@@ -46,8 +46,8 @@ export default function Home() {
         </div>
         <Projetos />
         <QuemSomos />
-        <Cases />
-        <div className="absolute -mt-10 md:-mt-16 w-3/4 md:w-1/3 md:left-1/3 right-16 text-center flex items-center justify-center">
+        <Cases/>
+        <div className="absolute mt-16 md:-mt-16 w-2/5 md:w-1/3 md:left-1/3 right-28 text-center flex items-center justify-center">
           <Image src={aguia} />
         </div>
         <Produtos />

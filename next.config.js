@@ -4,3 +4,14 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/admin/:path*',
+        destination: '/api/:path*',
+      },
+    ]
+  },
+}

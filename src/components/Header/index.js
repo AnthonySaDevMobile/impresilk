@@ -24,27 +24,27 @@ export default function Header() {
         </Link>
 
         <nav className="hidden sm:items-center sm:justify-between justify-between md:flex w-96 sm:gap-4 sm:w-2/3 ">
-          <Link className="link" href="/#sobre">
+          <Link className="link" href="/#sobre" scroll={false}>
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               QUEM SOMOS
             </p>
           </Link>
-          <Link className="link" href="/#cases">
+          <Link className="link" href="/#cases" scroll={false}>
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               CASES
             </p>
           </Link>
-          <Link className="link" href="/#produtos">
+          <Link className="link" href="/#produtos" scroll={false}>
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               PRODUTOS
             </p>
           </Link>
-          <Link className="link" href="/#portifolio">
+          <Link className="link" href="/#portifolio" scroll={false}>
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               PORTIFÓLIO
             </p>
           </Link>
-          <Link className="link" href="/#depoimentos">
+          <Link className="link" href="/#depoimentos" scroll={false}>
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               DEPOIMENTOS
             </p>
@@ -52,7 +52,7 @@ export default function Header() {
         </nav>
       </div>
 
-      <section className="MOBILE-MENU flex w-96 text-right md:hidden">
+      <section className="MOBILE-MENU flex w-96 text-right md:hidden" scroll={false}>
         <div
           className="space-y-2 max-[320px]:ml-28 ml-44"
           onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
@@ -81,32 +81,32 @@ export default function Header() {
             </svg>
           </div>
           <div className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
-            <Link onClick={() => setIsNavOpen(false)} href="/#home">
+            <Link onClick={() => setIsNavOpen(false)} href="/#home" scroll={false}>
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 HOME
               </p>
             </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#sobre">
+            <Link onClick={() => setIsNavOpen(false)} href="/#sobre" scroll={false}>
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 QUEM SOMOS
               </p>
             </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#cases">
+            <Link onClick={() => setIsNavOpen(false)} href="/#cases" scroll={false}>
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 CASES
               </p>
             </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#produtos">
+            <Link onClick={() => setIsNavOpen(false)} href="/#produtos" scroll={false}>
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 PRODUTOS
               </p>
             </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#portifolio">
+            <Link onClick={() => setIsNavOpen(false)} href="/#portifolio" scroll={false}>
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 PORTIFÓLIO
               </p>
             </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#depoimentos">
+            <Link onClick={() => setIsNavOpen(false)} href="/#depoimentos" scroll={false} >
               <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
                 DEPOIMENTOS
               </p>
