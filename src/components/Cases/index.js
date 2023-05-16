@@ -25,7 +25,7 @@ export default function Cases() {
 
   return (
     <div
-      className="bg-bg-slide relative h-[600px] w-full md:px-0 px-2 md:pb-20 pb-16 text-white"
+      className="bg-bg-slide relative h-[600px] md:h-fit w-full md:px-0 px-2 md:pb-20 pb-16 text-white"
       id="cases"
     >
       <Image
