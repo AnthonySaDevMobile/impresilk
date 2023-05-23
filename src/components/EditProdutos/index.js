@@ -9,7 +9,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
 
 export default function EditProdutos() {
@@ -39,16 +39,19 @@ export default function EditProdutos() {
   async function sendProdutos(e) {
     e.preventDefault();
     setTextButton("Enviando...");
-     handleUpload();
-    await addDoc(collection(db, "produtos"), {
+    const imageUrl = await handleUpload();
+    const produtosData = {
       categoria: categoria,
       caracteristica: caracteristica,
       descricao: descricao,
-      imagem: avatarUrlProdutosFirebase,
-    });
+      imagem: imageUrl,
+    };
+    await addDoc(collection(db, "produtos"), produtosData);
     setTextButton("Enviado!");
+
     const produtosQuery = query(collection(db, "produtos"));
     const produtosSnapshot = await getDocs(produtosQuery);
+
     const updateProdutos = produtosSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -63,26 +66,37 @@ export default function EditProdutos() {
 
   async function handleUpload() {
     if (avatarUrlProdutos !== null) {
-      const imagesRef = ref(
-        storage,
-        `imagesProdutos/${imageAvatarProdutos.name}`
-      );
-      await uploadBytes(imagesRef, imageAvatarProdutos).then((snapshot) => {});
-      const url = await getDownloadURL(
-        ref(storage, `imagesProdutos/${imageAvatarProdutos.name}`)
-      );
+      const imagesRef = ref(storage, `imagesProdutos/${imageAvatarProdutos.name}`);
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarProdutos);
+
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => { },
+          (error) => {
+            reject(error);
+          },
+          () => {
+            resolve();
+          }
+        );
+      });
+
+      const url = await getDownloadURL(imagesRef);
       setAvatarUrlProdutosFirebase(url);
-    } else {
-      return null;
+      return url;
     }
+
+    return null;
   }
 
+
   async function deleteItem(id) {
-    console.log(id);
+
     try {
       const itemRef = doc(db, "produtos", id);
       await deleteDoc(itemRef);
-      console.log("Item deletado com sucesso!");
+  
       setProdutos((prevProdutos) =>
         prevProdutos.filter((item) => item.id !== id)
       );

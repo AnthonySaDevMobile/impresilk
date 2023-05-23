@@ -117,7 +117,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio2(e) {
@@ -140,7 +139,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio3(e) {
@@ -163,7 +161,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
   function handleFilePortfolio4(e) {
     if (e.target.files[0]) {
@@ -185,7 +182,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio5(e) {
@@ -208,7 +204,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio6(e) {
@@ -231,7 +226,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
   function handleFilePortfolio7(e) {
     if (e.target.files[0]) {
@@ -253,7 +247,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio8(e) {
@@ -276,7 +269,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   function handleFilePortfolio9(e) {
@@ -298,7 +290,6 @@ export default function EditPortfolio() {
         return null;
       }
     }
-    console.log(typeof imageAvatarPortfolio);
   }
 
   //1
@@ -317,10 +308,10 @@ export default function EditPortfolio() {
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton("Enviado!");
   }
@@ -353,10 +344,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton2("Enviado!");
   }
@@ -365,7 +356,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio2 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId2}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio2).then((snapshot) => {
-        console.log("Uploaded 2!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId2}`)
@@ -390,10 +380,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton3("Enviado!");
   }
@@ -402,7 +392,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio3 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId3}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio3).then((snapshot) => {
-        console.log("Uploaded 3!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId3}`)
@@ -428,10 +417,10 @@ export default function EditPortfolio() {
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton4("Enviado!");
   }
@@ -465,10 +454,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton5("Enviado!");
   }
@@ -477,7 +466,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio5 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId5}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio5).then((snapshot) => {
-        console.log("Uploaded 5!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId5}`)
@@ -502,10 +490,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton6("Enviado!");
   }
@@ -514,7 +502,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio6 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId6}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio6).then((snapshot) => {
-        console.log("Uploaded 6!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId6}`)
@@ -537,10 +524,10 @@ export default function EditPortfolio() {
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton7("Enviado!");
   }
@@ -574,10 +561,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton8("Enviado!");
   }
@@ -586,7 +573,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio8 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId8}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio8).then((snapshot) => {
-        console.log("Uploaded 8!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId8}`)
@@ -611,10 +597,10 @@ export default function EditPortfolio() {
 
     await setDoc(portfolioRef, updatedData)
       .then(() => {
-        console.log("foi");
+       
       })
       .catch((e) => {
-        console.log("erro:" + e);
+        
       });
     setTextButton9("Enviado!");
   }
@@ -623,7 +609,6 @@ export default function EditPortfolio() {
     if (avatarUrlPortfolio9 !== null) {
       const imagesRef = ref(storage, `imagesPortfolio/${portfolioId9}`);
       await uploadBytes(imagesRef, imageAvatarPortfolio9).then((snapshot) => {
-        console.log("Uploaded 9!");
       });
       const url = await getDownloadURL(
         ref(storage, `imagesPortfolio/${portfolioId9}`)

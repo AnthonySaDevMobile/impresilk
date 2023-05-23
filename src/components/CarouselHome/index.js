@@ -22,7 +22,7 @@ export default function CarouselHome() {
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const [_, setInit] = useState();
+  const [_, setInit] = useState(false);
 
   const pagination = {
     renderBullet: function (index, className) {

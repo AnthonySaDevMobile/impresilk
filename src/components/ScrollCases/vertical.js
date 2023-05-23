@@ -34,7 +34,7 @@ const ScrollCasesVertical = () => {
 
    function handleBox(index) {
     setCasesForBox(cases[index]);
-    console.log(casesForBox);
+
   }
 
   return (
@@ -85,10 +85,6 @@ const ScrollCasesVertical = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="flex mt-10 gap-2 cursor-pointer">
-          <p className="text-yellow-500">VER TODOS </p>
-          <p className="text-white">OS CASES</p>
-        </div>
       </div>
 
       <div

@@ -9,7 +9,7 @@ import {
   query
 } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function EditCases() {
   const casesCollectionRef = collection(db, "cases");
@@ -33,22 +33,25 @@ export default function EditCases() {
       setCases(casesData);
     };
     getDepoiments();
-    console.log(cases);
+
   }, []);
 
   async function sendCase(e) {
     e.preventDefault();
     setTextButton("Enviando...");
-    await handleUpload();
-    await addDoc(collection(db, "cases"), {
+    const imageUrl = await handleUpload();
+    const caseData = {
       nome: nome,
       segundoNome: nome2,
       nota: nota,
       descricao: descricao,
       tempo: tempo,
-      imagem: avatarUrlCasesFirebase,
-    });
+      imagem: imageUrl,
+    };
+
+    await addDoc(collection(db, "cases"), caseData);
     setTextButton("Enviado!");
+
     const casesQuery = query(collection(db, "cases"));
     const casesSnapshot = await getDocs(casesQuery);
     const updatedCases = casesSnapshot.docs.map((doc) => ({
@@ -59,34 +62,46 @@ export default function EditCases() {
     setNome("");
     setNome2("");
     setDescricao("");
-    setTempo("")
-    setNota("")
-    setImageAvatarCases(null)
-    setAvatarUrlCases("")
+    setTempo("");
+    setNota("");
+    setImageAvatarCases(null);
+    setAvatarUrlCases("");
   }
 
   async function handleUpload() {
     if (avatarUrlCases !== null) {
       const imagesRef = ref(storage, `imagesCases/${imageAvatarCases.name}`);
-      await uploadBytes(imagesRef, imageAvatarCases).then((snapshot) => {});
-      const url = await getDownloadURL(
-        ref(storage, `imagesCases/${imageAvatarCases.name}`)
-      );
-      setAvatarUrlCasesFirebase(url);
-    } else {
-      return null;
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarCases);
+
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => { },
+          (error) => {
+            reject(error);
+          },
+          () => {
+            resolve();
+          }
+        );
+      });
+
+      const url = await getDownloadURL(imagesRef);
+      return url;
     }
+    return null;
+
   }
 
   async function deleteItem(id) {
-    console.log(id);
+
     try {
       const itemRef = doc(db, "cases", id);
       await deleteDoc(itemRef);
-      console.log("Item deletado com sucesso!");
+
       setCases((prevCases) => prevCases.filter((item) => item.id !== id));
     } catch (error) {
-      console.error("Erro ao deletar o item:", error);
+
     }
   }
 
@@ -195,16 +210,16 @@ export default function EditCases() {
               </span>
             </div>
             <div className="w-[100px] h-[100px] bg-zinc-100">
-          
-                <img
-                  src={item.imagem}
-                  width="250"
-                  height="250"
-                  alt="Foto da Home"
-                  className="w-full h-full object-cover"
-                />
-        
-        
+
+              <img
+                src={item.imagem}
+                width="250"
+                height="250"
+                alt="Foto da Home"
+                className="w-full h-full object-cover"
+              />
+
+
             </div>
             <div className="flex flex-col px-2">
               <div className="flex items-center gap-1 text-yellow-500">

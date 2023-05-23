@@ -170,37 +170,43 @@ export default function CarouselProducts() {
         modules={[Navigation, Pagination]}
         className="w-full mt-10"
       >
-        {chunkArray(filtered, 6).map((grupo, index) => (
-          <SwiperSlide key={index} className="pb-20">
-            <div className="md:grid md:grid-cols-2 md:grid-rows-2 gap-3">
-              {grupo.map((item) => (
-                <div key={item.id} className="flex justify-around p-4 bg-white">
-                  <div className="h-[250px] w-[240px] bg-zinc-200">
-                    <img
-                      src={item.imagem}
-                      width="250"
-                      height="250"
-                      alt="Foto"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="w-1/3 flex flex-col justify-around px-2 py-6">
-                    <strong className="text-xl">{item.categoria}</strong>
-                    <p className="text-blue-800 font-extrabold text-sm">
-                      {item.caracteristica}
-                    </p>
-                    <p className="text-zinc-500 mt-5 text-sm">
-                      {item.descricao}
-                    </p>
-                    <button className="mt-5 bg-zinc-200 text-zinc-500 md:px-5 px-1 py-2 rounded-xl text-xs">
-                      ORÇAMENTO
-                    </button>
-                  </div>
-                </div>
-              ))}
+{chunkArray(filtered, 6).map((grupo, index) => (
+  <SwiperSlide key={index} className="pb-20">
+    <div className="md:grid md:grid-cols-2 md:grid-rows-2 gap-3">
+      {grupo.length === 0 ? (
+        <div className="flex justify-center items-center p-4 bg-white">
+          <p>Ainda não há produtos cadastrados...</p>
+        </div>
+      ) : (
+        grupo.map((item) => (
+          <div key={item.id} className="flex justify-around p-4 bg-white">
+            <div className="h-[250px] w-[240px] bg-zinc-200">
+              <img
+                src={item.imagem}
+                width="250"
+                height="250"
+                alt="Foto"
+                className="w-full h-full object-cover"
+              />
             </div>
-          </SwiperSlide>
-        ))}
+            <div className="w-1/3 flex flex-col justify-around px-2 py-6">
+              <strong className="text-xl">{item.categoria}</strong>
+              <p className="text-blue-800 font-extrabold text-sm">
+                {item.caracteristica}
+              </p>
+              <p className="text-zinc-500 mt-5 text-sm">
+                {item.descricao}
+              </p>
+              <button className="mt-5 bg-zinc-200 text-zinc-500 md:px-5 px-1 py-2 rounded-xl text-xs">
+                ORÇAMENTO
+              </button>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  </SwiperSlide>
+))}
       </Swiper>
     </div>
   );

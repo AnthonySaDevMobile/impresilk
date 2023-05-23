@@ -1,28 +1,46 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../../public/logo.png";
 import {
   FaFacebook,
-  FaTwitch,
-  FaGooglePlus,
   FaInstagram,
-  FaTwitter,
   FaArrowAltCircleRight,
 } from "react-icons/fa";
 import { MdLocationPin, MdEmail, MdCall } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+
+
 
 function Footer() {
+
+  const [feedList, setFeedList] = useState([])
+
+  async function getInstaFeed() {
+    try {
+      const fields = "media_url, media_type,permalink"
+      const token = process.env.IMPRESILK_TOKEN;
+      const url = `https://graph.instagram.com/me/media?access_token=${token}&fields=${fields}`;
+      const { data } = await axios.get(url);
+      setFeedList(data.data);
+    } catch {
+
+    }
+  }
+  useEffect(() => {
+    getInstaFeed();
+
+  }, []);
+
+
   return (
     <footer className="w-full sm:h-fit pt-5 bg-bg-black-ct text-white">
       <div className="sm:w-9/12 sm:m-auto pl-5 pb-2 flex justify-between">
-        <div className="sm:w-5/12 flex flex-col justify-start text-left sm:pb-20 pt-5">
+        <div className="sm:w-5/12  flex flex-col justify-start text-left sm:pb-20 pt-5">
           <Image src={Logo} alt="logo" className="md:mt-0 mt-2 h-1/4 w-28" />
           <p className="text-zinc-500 mt-5">
-            Lorem Ipsum has been the industrys standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+            A Impresilk é uma empresa familiar que nasceu há mais de 30 anos, dá vontade e união dos três irmãos, Adilson Pereira, Anita Pereira e Pedro Ramos Pereira, de empreenderem. Iniciaram o seu negócio na cidade de São Francisco, a 167 km de Montes Claros, sendo a primeira empresa de serigrafia do Norte de Minas Gerais. Com o crescimento da empresa, os irmãos mudaram para Montes Claros e começaram a reescrever a história da Impresilk.
           </p>
           <div>
             <div className="flex gap-2 text-base px-2 items-center mt-5">
@@ -45,24 +63,13 @@ function Footer() {
             <h1 className="mt-5 mb-5 font-semibold text-center">
               Redes Sociais
             </h1>
-            <div className="flex gap-2 py-2 justify-around">
-              
-              <Link href="">
+            <div className="flex gap-2 py-2 justify-around w-1/2 m-auto">
+
+              <Link href="https://www.facebook.com/impresilk" target="_blank">
                 <FaFacebook color="#8e8e8e" size={20} />
               </Link>
-              <Link href="">
-                <FaTwitter color="#8e8e8e" size={20} />
-              </Link>
 
-              <Link href="">
-                <FaTwitch color="#8e8e8e" size={20} />
-              </Link>
-
-              <Link href="">
-                <FaGooglePlus color="#8e8e8e" size={20} />
-              </Link>
-
-              <Link href="">
+              <Link href="https://www.instagram.com/impresilk/" target="_blank">
                 <FaInstagram color="#8e8e8e" size={20} />
               </Link>
             </div>
@@ -127,14 +134,15 @@ function Footer() {
             <p>Depoimentos</p>
           </Link>
         </div>
-        <div className="mt-10 text-zinc-400 text-sm text-center hidden md:flex md:flex-col">
+        <div className="mt-10 text-zinc-400 text-sm w-fit m-auto text-center hidden md:flex md:flex-col">
           <h1 className="text-xl mb-5 text-white">
             Atualizações do <strong className="font-bold ">instagram</strong>
           </h1>
-          <div className="grid grid-cols-3 grid-rows-2 gap-2">
-            <div className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover"></div>
+
+          <div className="grid grid-cols-3 grid-rows-2  w-fit gap-3" >
+           <Link href="https://www.instagram.com/impresilk/" target="_blank">           
             <div
-              className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover hover:brightness-150 transiton-all duration-500"
+              className="bg-zinc-500 w-[130px] h-[135px] flex items-center justify-center object-cover hover:brightness-150 transiton-all duration-500"
               style={{
                 background:
                   "radial-gradient(circle, rgba(176,0,172,1) 39%, rgba(252,70,107,1) 100%, rgba(241,70,252,1) 100%)",
@@ -143,15 +151,34 @@ function Footer() {
               {" "}
               <FaInstagram size={50} color="white" />{" "}
             </div>
-            <div className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover"></div>
-            <div className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover"></div>
-            <div className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover"></div>
-            <div className="bg-zinc-500 w-[118px] h-[110px] flex items-center justify-center object-cover"></div>
+           </Link>
+            {feedList.slice(0, 5).map((item) => (
+              <div key={item.id}>
+               <Link href={item.permalink} target="_blank">
+                <div className="bg-zinc-500 w-[130px] h-[135px] flex items-center justify-center object-cover">
+
+                  {item.media_type === "VIDEO"
+                    ?
+                    <video controls autoPlay className="object-cover w-full h-full">
+                    <source src={item.media_url} />
+                  </video>
+                    :
+                    <img src={item.media_url} alt="imagem Instagram" className="object-cover w-full h-full" />
+                  }
+
+                </div>
+               </Link>
+              </div>
+
+            ))}
           </div>
+
           <p className="text-left mt-5">
             Siga-nos <strong className="text-yellow-500">@impresilk</strong>
           </p>
         </div>
+
+
       </div>
       <div className="bg-black text-xs py-8 h-full text-center">
         <p>

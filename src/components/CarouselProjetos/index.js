@@ -49,9 +49,9 @@ export default function CarouselProjetos() {
         className="w-full h-1/2 relative mb-10"
       >
         {sortedProjetos.map((item) => (
-          <div key={item.id}>
+          <div key={item.id} >
             <SwiperSlide>
-              <div className="absolute bg-blue-800 p-4  z-10 text-white font-extrabold top-4 left-4 text-xs sm:top-6 sm:left-6 sm:text-lg">
+              <div className="absolute bg-blue-800 p-4  z-10 text-white font-extrabold top-4 left-4 text-xs sm:top-6 sm:left-6 sm:text-lg" >
                 <p>{item.dia}</p>
                 <p>{item.mes}</p>
               </div>

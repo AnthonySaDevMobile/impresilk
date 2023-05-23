@@ -79,11 +79,6 @@ const ScrollCasesHorizontal = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex mt-10 gap-2 cursor-pointer">
-        <p className="text-yellow-500">VER TODOS </p>
-        <p className="text-white">OS CASES</p>
-      </div>
-
       <div
         className="w-full h-[600px] md:mt-0 mt-5 bg-white relative"
         style={{

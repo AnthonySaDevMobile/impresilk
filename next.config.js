@@ -15,3 +15,8 @@ module.exports = {
     ]
   },
 }
+module.exports = {
+  env: {
+    IMPRESILK_TOKEN: process.env.IMPRESILK_TOKEN,
+  },
+};

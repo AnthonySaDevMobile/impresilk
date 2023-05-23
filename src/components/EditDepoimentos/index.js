@@ -93,7 +93,7 @@ export default function EditDepoimentos() {
 
         break;
       default:
-        console.log("Depoimento inválido");
+        alert("Depoimento inválido");
     }
   };
 
@@ -171,10 +171,10 @@ export default function EditDepoimentos() {
 
     await setDoc(depoimentRef, updatedData)
       .then(() => {
-        console.log("foi");
+  
       })
       .catch((e) => {
-        console.log("erro:" + e);
+   
       });
     setTextButton("Enviado!");
   }
@@ -202,10 +202,10 @@ export default function EditDepoimentos() {
 
     await setDoc(depoimentRef2, updatedData)
       .then(() => {
-        console.log("foi");
+    
       })
       .catch((e) => {
-        console.log("erro:" + e);
+     
       });
     setTextButton2("Enviado!");
   }
@@ -232,10 +232,10 @@ export default function EditDepoimentos() {
     };
     await setDoc(depoimentRef3, updatedData)
       .then(() => {
-        console.log("foi");
+    
       })
       .catch((e) => {
-        console.log("erro:" + e);
+
       });
     setTextButton3("Enviado!");
   }
@@ -244,7 +244,6 @@ export default function EditDepoimentos() {
     if (avatarUrlsDepoimento !== null) {
       const imagesRef = ref(storage, `imagesDepoiments/${depoimentId1}`);
       await uploadBytes(imagesRef, imageAvatarDepoimento).then((snapshot) => {
-        console.log("Uploaded 1!");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId1}`));
       setAvatarUrlFirebase(url);
@@ -257,7 +256,6 @@ export default function EditDepoimentos() {
     if (avatarUrlsDepoimento2 !== null) {
       const imagesRef = ref(storage, `imagesDepoiments/${depoimentId2}`);
       await uploadBytes(imagesRef, imageAvatarDepoimento2).then((snapshot) => {
-        console.log("Uploaded 2!");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId2}`));
       setAvatarUrlFirebase(url);
@@ -270,7 +268,6 @@ export default function EditDepoimentos() {
     if (avatarUrlsDepoimento3 !== null) {
       const imagesRef = ref(storage, `imagesDepoiments/${depoimentId3}`);
       await uploadBytes(imagesRef, imageAvatarDepoimento3).then((snapshot) => {
-        console.log("Uploaded 3");
       });
       const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId3}`));
       setAvatarUrl3Firebase(url);

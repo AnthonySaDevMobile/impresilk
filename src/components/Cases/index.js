@@ -20,7 +20,6 @@ export default function Cases() {
       setCases(casesData);
     };
     getDepoiments();
-    console.log(cases);
   }, []);
 
   return (

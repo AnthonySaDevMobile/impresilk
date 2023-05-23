@@ -10,7 +10,7 @@ import {
   serverTimestamp
 } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function EditProjetos() {
   const projetosRef = collection(db, "projetos");
@@ -38,14 +38,18 @@ export default function EditProjetos() {
   async function sendProjetos(e) {
     e.preventDefault();
     setTextButton("Enviando...");
-    await handleUpload();
-    await addDoc(collection(db, "projetos"), {
+    const imageUrl = await handleUpload();
+    
+    const projetosData = {
       dia: dia,
       mes: mes,
-      imagem: avatarUrlProjetosFirebase,
+      imagem: imageUrl,
       dataCriacao: serverTimestamp()
-    });
+    };
+  
+    await addDoc(collection(db, "projetos"), projetosData);
     setTextButton("Enviado!");
+  
     const projetosQuery = query(collection(db, "projetos"));
     const projetosSnapshot = await getDocs(projetosQuery);
     const updateProjetos = projetosSnapshot.docs.map((doc) => ({
@@ -53,31 +57,41 @@ export default function EditProjetos() {
       id: doc.id,
     }));
     setProjetos(updateProjetos);
+  
     setImageAvatarProjetos(null);
     setAvatarUrlProjetos("");
   }
-
+  
   async function handleUpload() {
-    if (avatarUrlProjetos !== null) {
-      const imagesRef = ref(
-        storage,
-        `imagesProjetos/${imageAvatarProjetos.name}`
-      );
-      await uploadBytes(imagesRef, imageAvatarProjetos).then((snapshot) => {});
-      const url = await getDownloadURL(
-        ref(storage, `imagesProjetos/${imageAvatarProjetos.name}`)
-      );
-      setAvatarUrlProjetosFirebase(url);
-    } else {
-      return null;
+    if (imageAvatarProjetos !== null) {
+      const imagesRef = ref(storage, `imagesProjetos/${imageAvatarProjetos.name}`);
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarProjetos);
+  
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            reject(error);
+          },
+          () => {
+            resolve();
+          }
+        );
+      });
+  
+      const url = await getDownloadURL(imagesRef);
+      return url;
     }
+  
+    return null;
   }
 
   async function deleteItem(id) {
     try {
       const itemRef = doc(db, "projetos", id);
       await deleteDoc(itemRef);
-      console.log("Item deletado com sucesso!");
+     
       setProjetos((prevProjetos) =>
         prevProjetos.filter((item) => item.id !== id)
       );
@@ -150,11 +164,7 @@ export default function EditProjetos() {
         <p className="mb-5">Projetos já cadastrados</p>
         {projetos.map((item) => (
           <div key={item.id}>
-            <div className="absolute mt-5 bg-blue-800 p-4 z-10 text-white font-extrabold top-4 left-4 text-xs sm:top-6 sm:left-6 sm:text-lg">
-              <p>{item.dia}</p>
-              <p>{item.mes}</p>
-            </div>
-            <div className="w-[400px]  h-[300px] bg-zinc-100 object-cover brightness-50">
+            <div className="w-[400px]  h-[300px] bg-zinc-100 mt-5 object-cover brightness-50">
               <img
                 src={item.imagem}
                 width="250"
@@ -163,7 +173,7 @@ export default function EditProjetos() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className=" mt-5 text-center flex items-center justify-center">
+            <div className=" mt-5 cursor-pointer text-center flex items-center justify-center">
               <FaTrash
                 color="red"
                 size={30}
@@ -173,6 +183,7 @@ export default function EditProjetos() {
             </div>
           </div>
         ))}
+
       </div>
     </div>
   );

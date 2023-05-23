@@ -30,10 +30,10 @@ export default function EditQuemSomos() {
 
     await setDoc(quemSomosRed, updatedData)
       .then(() => {
-        console.log("foi");
+  
       })
       .catch((e) => {
-        console.log("erro:" + e);
+    
       });
     setTextButton("Enviado!");
   }

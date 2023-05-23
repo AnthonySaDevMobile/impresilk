@@ -50,7 +50,7 @@ export default function Home() {
         <QuemSomos />
         <Cases/>
         <div className="absolute -mt-4s md:-mt-16 w-3/5 md:w-1/3 md:left-1/3 right-24 text-center flex items-center justify-center">
-          <Image src={aguia} />
+          <Image src={aguia} alt="aguia" />
         </div>
         <Produtos />
         <Portfolio />

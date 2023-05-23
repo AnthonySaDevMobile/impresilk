@@ -20,7 +20,7 @@ export default function Login() {
       router.push('/admin') // Usar a função router.push para redirecionar
     } catch (error) {
       setText("Dados incorretos!");
-      console.log(error)
+  
       // Tratar erro de login
     }
   }
