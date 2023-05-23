@@ -24,8 +24,9 @@ function Footer() {
       const url = `https://graph.instagram.com/me/media?access_token=${token}&fields=${fields}`;
       const { data } = await axios.get(url);
       setFeedList(data.data);
+      console.log(data.data)
     } catch {
-
+      console.log("error");
     }
   }
   useEffect(() => {
