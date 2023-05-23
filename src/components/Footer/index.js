@@ -20,7 +20,7 @@ function Footer() {
   async function getInstaFeed() {
     try {
       const fields = "media_url, media_type,permalink"
-      const token = 'IGQVJWQWlNRUFySno3RlNUWVQ2RjNkNVZAIV3JBelJETkNVMjIzYXZANYUZAWNDJ1OXdVX1hPWWFTYW9PT2JiaFlFN0ExamlkUEFYRVdTXzFrM0tldVZAWZA180c1lCeWZAxb1AySXZAxakVBOHdSc2tmTnI4VgZDZD';
+      const token = process.env.IMPRESILK_TOKEN;
       const url = `https://graph.instagram.com/me/media?access_token=${token}&fields=${fields}`;
       const { data } = await axios.get(url);
       setFeedList(data.data);
