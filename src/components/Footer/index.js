@@ -24,7 +24,6 @@ function Footer() {
       const url = `https://graph.instagram.com/me/media?access_token=${token}&fields=${fields}`;
       const { data } = await axios.get(url);
       setFeedList(data.data);
-      console.log(data.data)
     } catch {
       console.log("error");
     }
@@ -143,7 +142,7 @@ function Footer() {
           <div className="grid grid-cols-3 grid-rows-2  w-fit gap-3" >
            <Link href="https://www.instagram.com/impresilk/" target="_blank">           
             <div
-              className="bg-zinc-500 w-[130px] h-[135px] flex items-center justify-center object-cover hover:brightness-150 transiton-all duration-500"
+              className="bg-zinc-500 w-[150px] h-[135px] flex items-center justify-center object-cover hover:brightness-150 transiton-all duration-500"
               style={{
                 background:
                   "radial-gradient(circle, rgba(176,0,172,1) 39%, rgba(252,70,107,1) 100%, rgba(241,70,252,1) 100%)",
@@ -156,7 +155,7 @@ function Footer() {
             {feedList.slice(0, 5).map((item) => (
               <div key={item.id}>
                <Link href={item.permalink} target="_blank">
-                <div className="bg-zinc-500 w-[130px] h-[135px] flex items-center justify-center object-cover">
+                <div className="bg-zinc-500 w-[150px] h-[135px] flex items-center justify-center object-cover">
 
                   {item.media_type === "VIDEO"
                     ?
