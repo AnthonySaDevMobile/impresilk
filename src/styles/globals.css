@@ -6,7 +6,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;  
 }
 
 html{
@@ -94,7 +93,7 @@ html{
   align-items: center !important;
   justify-content: center !important;
   background-color: rgba(0, 0, 0, 0.8) !important;
-  z-index: 9999 !important;
+  z-index: 99 !important;
 }
 
 .modal-backdrop {

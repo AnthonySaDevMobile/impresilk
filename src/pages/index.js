@@ -1,22 +1,43 @@
+import CarouselHome from "@/components/CarouselHome";
+import Cases from "@/components/Cases";
+import Depoimentos from "@/components/Depoimentos";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import React from "react";
-import Image from "next/image";
-import CarouselHome from "@/components/CarouselHome";
-import Link from "next/link";
-import aguia from "../../public/aguia.png";
-import QuemSomos from "@/components/QuemSomos";
-import Cases from "@/components/Cases";
-import Portfolio from "@/components/Portfolio";
 import Mapa from "@/components/Mapa";
+import Portfolio from "@/components/Portfolio";
 import Produtos from "@/components/Produtos";
-import Depoimentos from "@/components/Depoimentos";
 import Projetos from "@/components/Projetos";
+import QuemSomos from "@/components/QuemSomos";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import aguia from "../../public/aguia.png";
+import Loading from "./loading";
 
 export default function Home() {
+  
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+
+      const timeout = setTimeout(() => {
+          setIsLoading(false);
+      }, 2000);
+
+      return () => {
+
+          clearTimeout(timeout);
+      };
+  }, []);
+
+  
   return (
-    <div>
+    <>
+    
+   {
+   isLoading ? <Loading/>
+   :( <div>
     <Head>
         <title>Impresilk</title> 
         <link rel="apple-touch-icon" tamanhos="180x180" href="/apple-touch-icon.png"/> 
@@ -58,6 +79,8 @@ export default function Home() {
         <Mapa />
         <Footer id="footer" />
       </main>
-    </div>
+    </div>)
+    }
+    </>
   );
 }

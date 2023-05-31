@@ -11,26 +11,29 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
-
-
 function Footer() {
-
-  const [feedList, setFeedList] = useState([])
+  const [feedList, setFeedList] = useState([]);
 
   async function getInstaFeed() {
     try {
-      const fields = "media_url, media_type,permalink"
-      const token = process.env.IMPRESILK_TOKEN;
-      const url = `https://graph.instagram.com/me/media?access_token=${token}&fields=${fields}`;
-      const { data } = await axios.get(url);
-      setFeedList(data.data);
-    } catch {
-      console.log("error");
+      const fields = "media_url, media_type,permalink";
+      const response = await axios.get(
+        `https://graph.instagram.com/me/media`,
+        {
+          params: {
+            access_token: process.env.IMPRESILK_TOKEN,
+            fields,
+          },
+        }
+      );
+      setFeedList(response.data.data);
+    } catch (error) {
+      console.log("error:", error);
     }
   }
+
   useEffect(() => {
     getInstaFeed();
-
   }, []);
 
 
@@ -159,7 +162,7 @@ function Footer() {
 
                   {item.media_type === "VIDEO"
                     ?
-                    <video controls autoPlay className="object-cover w-full h-full">
+                    <video controls autoPlay muted className="object-cover w-full h-full">
                     <source src={item.media_url} />
                   </video>
                     :

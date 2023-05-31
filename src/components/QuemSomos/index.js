@@ -60,7 +60,7 @@ export default function QuemSomos() {
                 <Modal
                   isOpen={isOpen} onRequestClose={closeModal}
                   contentLabel="Texto Completo"
-                  className="seu-modal"
+                  className="seu-modal z-50"
                   overlayClassName="seu-modal-overlay"
                 >
                   <div className="modal-content">

@@ -1,11 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "../../../public/logo.png";
 import Image from "next/image";
 
+
+function smoothScrollTo(target) {
+  const offsetTop = target.offsetTop;
+
+  window.scrollTo({
+    top: offsetTop,
+    behavior: 'smooth',
+  });
+}
+
 export default function Header() {
+
   const [isNavOpen, setIsNavOpen] = useState(false);
 
+  useEffect(() => {
+    const links = document.querySelectorAll('.link');
+
+    for (let i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+
+        if (target) {
+          smoothScrollTo(target);
+        }
+      });
+    }
+  }, []);
   return (
     <header
       className="w-full top-0 py-10 text-white text-xs z-30 lg:tracking-widest items-center  flex justify-between px-8 fixed"
@@ -53,88 +79,89 @@ export default function Header() {
         </nav>
       </div>
 
-      <section className="MOBILE-MENU flex  text-right md:hidden">
-        <div
-          className="space-y-2"
-          onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
-        >
-          <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
-          <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
-          <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
-        </div>
+      <section className="MOBILE-MENU flex text-right md:hidden">
+      <div
+        className="space-y-2"
+        onClick={() => setIsNavOpen((prev) => !prev)}
+      >
+        <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
+        <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
+        <p className="block h-0.5 w-8 animate-pulse bg-blue-500 hover:bg-blue-400"></p>
+      </div>
 
-        <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
-          <div
-            className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
-            onClick={() => setIsNavOpen(false)}
-          >
-            <svg
-              className="h-8 w-8 text-red-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </div>
-          <div className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
-            <Link onClick={() => setIsNavOpen(false)} href="/#home">
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                HOME
-              </p>
-            </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#sobre">
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                QUEM SOMOS
-              </p>
-            </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#cases">
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                CASES
-              </p>
-            </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#produtos">
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                PRODUTOS
-              </p>
-            </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#portifolio">
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                PORTIFÓLIO
-              </p>
-            </Link>
-            <Link onClick={() => setIsNavOpen(false)} href="/#depoimentos" >
-              <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
-                DEPOIMENTOS
-              </p>
-            </Link>
-          </div>
+      <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+        <div
+          className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
+          onClick={() => setIsNavOpen(false)}
+        >
         </div>
-      </section>
-      <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        color: white;
-        right: 0;
-        background: #072761;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-      }
-    `}</style>
+        <div className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
+          <Link onClick={() => setIsNavOpen(false)} href="/#home">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              HOME
+            </p>
+          </Link>
+          <Link onClick={() => setIsNavOpen(false)} href="/#sobre">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              QUEM SOMOS
+            </p>
+          </Link>
+          <Link onClick={() => setIsNavOpen(false)} href="/#cases">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              CASES
+            </p>
+          </Link>
+          <Link onClick={() => setIsNavOpen(false)} href="/#produtos">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              PRODUTOS
+            </p>
+          </Link>
+          <Link onClick={() => setIsNavOpen(false)} href="/#portifolio">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              PORTIFÓLIO
+            </p>
+          </Link>
+          <Link onClick={() => setIsNavOpen(false)} href="/#depoimentos">
+            <p className="hover:underline hover:underline-offset-4 transition ease-in delay-75">
+              DEPOIMENTOS
+            </p>
+          </Link>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .hideMenuNav {
+          display: none;
+        }
+
+        .showMenuNav {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 5rem;
+          right: 0rem;
+          border-radius:5%;
+          color: white;
+          background: blue;
+          z-index: 99;
+          padding: 1.5rem;
+          animation: fadeInDown 0.5s ease-in-out;
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+        }
+
+        @keyframes fadeInDown {
+          0% {
+            opacity: 0;
+            transform: translateY(-50px) rotateX(-90deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+          }
+        }
+      `}</style>
+    </section>
     </header>
   );
 }
