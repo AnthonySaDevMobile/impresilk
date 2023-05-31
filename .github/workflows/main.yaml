@@ -1,8 +1,5 @@
 name: Deploy via ftp
-on:
- push:
-  branchs:
-    - main
+on: push
 jobs:
   deploy:
     name: Deploy
@@ -16,4 +13,4 @@ jobs:
         host: ${{ secrets.HOST }} 
         user: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
-        localDir: "./.next"
+        localDir: "dist
