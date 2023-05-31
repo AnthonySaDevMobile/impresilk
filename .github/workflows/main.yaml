@@ -26,3 +26,4 @@ jobs:
           user: ${{ secrets.USER }}
           password: ${{ secrets.PASS }}
           localDir: "./.next"
+          remoteDir: "/home/impresilk1/"
