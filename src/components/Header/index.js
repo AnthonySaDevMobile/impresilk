@@ -17,21 +17,6 @@ export default function Header() {
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  useEffect(() => {
-    const links = document.querySelectorAll('.link');
-
-    for (let i = 0; i < links.length; i++) {
-      links[i].addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute('href'));
-
-        if (target) {
-          smoothScrollTo(target);
-        }
-      });
-    }
-  }, []);
   return (
     <header
       className="w-full top-0 py-10 text-white text-xs z-30 lg:tracking-widest items-center  flex justify-between px-8 fixed"
@@ -51,27 +36,27 @@ export default function Header() {
         </Link>
 
         <nav className="hidden sm:items-center sm:justify-between justify-between md:flex w-96 sm:gap-4 sm:w-2/3 ">
-          <Link className="link" href="/#sobre">
+          <Link href="/#sobre">
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               QUEM SOMOS
             </p>
           </Link>
-          <Link className="link" href="/#cases">
+          <Link href="/#cases">
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               CASES
             </p>
           </Link>
-          <Link className="link" href="/#produtos">
+          <Link href="/#produtos">
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               PRODUTOS
             </p>
           </Link>
-          <Link className="link" href="/#portifolio">
+          <Link href="/#portifolio">
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               PORTIFÓLIO
             </p>
           </Link>
-          <Link className="link" href="/#depoimentos">
+          <Link href="/#depoimentos">
             <p className="hover:text-blue-500 hover:underline hover:underline-offset-4 transition ease-in delay-75 ">
               DEPOIMENTOS
             </p>
