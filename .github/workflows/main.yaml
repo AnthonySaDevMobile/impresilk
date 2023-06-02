@@ -22,7 +22,7 @@ jobs:
       - name: FTP Deploy Locaweb
         uses: locaweb/ftp-deploy@1.0.0
         with:
-          host: "ftp.impresilk.com"
+          host: "ftp.impresilk1.hospedagemdesites.ws"
           user: "impresilk1"
           password: ${{ secrets.PASS }}
           localDir: "dist"
