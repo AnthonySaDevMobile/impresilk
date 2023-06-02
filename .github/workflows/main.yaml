@@ -25,5 +25,5 @@ jobs:
           host: "ftp.impresilk1.hospedagemdesites.ws"
           user: "impresilk1"
           password: ${{ secrets.PASS }}
-          localDir: "./.next"
+          localDir: "./.next/"
           remoteDir: "/home/impresilk1/"
