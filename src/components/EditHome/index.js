@@ -116,7 +116,6 @@ export default function EditHome() {
 
     const imageUrl = await handleUpload();
 
-    // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
       imagem: imageUrl || home.imagem,
     };
@@ -132,7 +131,32 @@ export default function EditHome() {
     setTextButton("Enviado!");
   }
 
- 
+  async function handleUpload() {
+    if (avatarUrlHome2 !== null) {
+      const imagesRef = ref(storage, `imagesHome/${homeId}`);
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarHome);
+
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => { },
+          (error) => {
+            reject(error);
+          },
+          () => {
+            resolve();
+          }
+        );
+      });
+
+      const url = await getDownloadURL(imagesRef);
+      setAvatarUrlHomeFirebase(url);
+      return url;
+    }
+
+    return null;
+  }
+  
   async function handleSave2(e) {
     e.preventDefault();
     setTextButton2("Enviando...");

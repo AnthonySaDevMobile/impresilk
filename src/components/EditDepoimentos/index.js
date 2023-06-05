@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 export default function EditDepoimentos() {
-  const [avatarUrl, setAvatarUrl] = useState(null);
-  const [avatarUrl2, setAvatarUrl2] = useState(null);
-  const [avatarUrl3, setAvatarUrl3] = useState(null);
-  const [avatarUrlFirebase, setAvatarUrlFirebase] = useState(null);
-  const [avatarUrl2Firebase, setAvatarUrl2Firebase] = useState(null);
-  const [avatarUrl3Firebase, setAvatarUrl3Firebase] = useState(null);
   const [avatarUrlsDepoimento, setAvatarUrlDepoimento] = useState("");
   const [imageAvatarDepoimento, setImageAvatarDepoimento] = useState(null);
   const [avatarUrlsDepoimento2, setAvatarUrlDepoimento2] = useState("");
@@ -116,6 +110,7 @@ export default function EditDepoimentos() {
     }
     setTextButton("Enviar alterações");
   }
+
   function handleFileDepoimento2(e) {
     if (e.target.files[0]) {
       const image = e.target.files[0];
@@ -151,9 +146,9 @@ export default function EditDepoimentos() {
     e.preventDefault();
     setTextButton("Enviando...");
     const depoimento = depoiments[0];
-    const depoimentRef = doc(db, "depoiments", depoimentId1);
-    handleUpload();
-    // atualizar apenas os campos que foram alterados
+    const depoimentRef2 = doc(db, "depoiments", depoimentId1);
+    const imageUrl = await handleUpload();
+  
     const updatedData = {
       empresa: empresa || depoimento.empresa,
       nome: nome || depoimento.nome,
@@ -166,25 +161,27 @@ export default function EditDepoimentos() {
       twitch: twitch || depoimento.twitch,
       google: google || depoimento.google,
       instagram: instagram || depoimento.instagram,
-      imagem: avatarUrlFirebase || depoimento.imagem,
+      imagem: imageUrl || depoimento.imagem
     };
-
-    await setDoc(depoimentRef, updatedData)
-      .then(() => {
   
-      })
-      .catch((e) => {
-   
-      });
-    setTextButton("Enviado!");
+  
+    try {
+      await setDoc(depoimentRef2, updatedData);
+      // Update successful
+      setTextButton("Enviado!");
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
   }
+  
   async function handleSave2(e) {
     e.preventDefault();
     setTextButton2("Enviando...");
     const depoimento = depoiments2[0];
     const depoimentRef2 = doc(db, "depoiments", depoimentId2);
-    handleUpload2();
-    // atualizar apenas os campos que foram alterados
+    const imageUrl = await handleUpload2();
+  
     const updatedData = {
       empresa: empresa2 || depoimento.empresa,
       nome: nome2 || depoimento.nome,
@@ -192,29 +189,31 @@ export default function EditDepoimentos() {
       comentario: comentario2 || depoimento.comentario,
       cargo: cargo2 || depoimento.cargo,
       subcargo: subCargo2 || depoimento.subcargo,
-      facebook: facebook2 || depoimento.facebook,
-      twitter: twitter2 || depoimento.twitter,
-      twitch: twitch2 || depoimento.twitch,
-      google: google2 || depoimento.google,
-      instagram: instagram2 || depoimento.instagram,
-      imagem: avatarUrl2Firebase || depoimento.imagem,
+      facebook: facebook2 || depoimento.facebook || "",
+      twitter: twitter2 || depoimento.twitter || "",
+      twitch: twitch2 || depoimento.twitch || "",
+      google: google2 || depoimento.google || "",
+      instagram: instagram2 || depoimento.instagram || "",
+      imagem: imageUrl || depoimento.imagem,
     };
-
-    await setDoc(depoimentRef2, updatedData)
-      .then(() => {
-    
-      })
-      .catch((e) => {
-     
-      });
-    setTextButton2("Enviado!");
+  
+    try {
+      await setDoc(depoimentRef2, updatedData);
+      // Update successful
+      setTextButton2("Enviado!");
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
   }
+  
   async function handleSave3(e) {
     e.preventDefault();
     setTextButton3("Enviando...");
     const depoimento = depoiments3[0];
     const depoimentRef3 = doc(db, "depoiments", depoimentId3);
-    handleUpload3();
+    const imageUrl = await handleUpload3();
+
     // atualizar apenas os campos que foram alterados
     const updatedData = {
       empresa: empresa3 || depoimento.empresa,
@@ -223,12 +222,12 @@ export default function EditDepoimentos() {
       comentario: comentario3 || depoimento.comentario,
       cargo: cargo3 || depoimento.cargo,
       subcargo: subCargo3 || depoimento.subcargo,
-      facebook: facebook3 || depoimento.facebook,
-      twitter: twitter3 || depoimento.twitter,
-      twitch: twitch3 || depoimento.twitch,
-      google: google3 || depoimento.google,
-      instagram: instagram3 || depoimento.instagram,
-      imagem: avatarUrl3Firebase || depoimento.imagem,
+      facebook: facebook3 || depoimento.facebook || "",
+      twitter: twitter3 || depoimento.twitter || "",
+      twitch: twitch3 || depoimento.twitch || "",
+      google: google3 || depoimento.google || "",
+      instagram: instagram3 || depoimento.instagram || "",
+      imagem: imageUrl || depoimento.imagem,
     };
     await setDoc(depoimentRef3, updatedData)
       .then(() => {
@@ -242,40 +241,71 @@ export default function EditDepoimentos() {
 
   async function handleUpload() {
     if (avatarUrlsDepoimento !== null) {
-      const imagesRef = ref(storage, `imagesDepoiments/${depoimentId1}`);
-      await uploadBytes(imagesRef, imageAvatarDepoimento).then((snapshot) => {
-      });
-      const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId1}`));
-      setAvatarUrlFirebase(url);
-    } else {
-      return null;
-    }
-  }
+        const imagesRef = ref(storage, `imagesDepoiments/${imageAvatarDepoimento.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarDepoimento);
 
-  async function handleUpload2() {
-    if (avatarUrlsDepoimento2 !== null) {
-      const imagesRef = ref(storage, `imagesDepoiments/${depoimentId2}`);
-      await uploadBytes(imagesRef, imageAvatarDepoimento2).then((snapshot) => {
-      });
-      const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId2}`));
-      setAvatarUrlFirebase(url);
-    } else {
-      return null;
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
 
-  async function handleUpload3() {
-    if (avatarUrlsDepoimento3 !== null) {
-      const imagesRef = ref(storage, `imagesDepoiments/${depoimentId3}`);
-      await uploadBytes(imagesRef, imageAvatarDepoimento3).then((snapshot) => {
+async function handleUpload2() {
+  if (avatarUrlsDepoimento !== null) {
+      const imagesRef = ref(storage, `imagesDepoiments/${imageAvatarDepoimento2.name}`);
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarDepoimento2);
+
+      await new Promise((resolve, reject) => {
+          uploadTask.on(
+              "state_changed",
+              (snapshot) => { },
+              (error) => {
+                  reject(error);
+              },
+              () => {
+                  resolve();
+              }
+          );
       });
-      const url = await getDownloadURL(ref(storage, `imagesDepoiments/${depoimentId3}`));
-      setAvatarUrl3Firebase(url);
-    } else {
-      return null;
-    }
+      const url = await getDownloadURL(imagesRef);
+      return url;
   }
+  return null;
+}
+async function handleUpload3() {
+  if (avatarUrlsDepoimento !== null) {
+      const imagesRef = ref(storage, `imagesDepoiments/${imageAvatarDepoimento3.name}`);
+      const uploadTask = uploadBytesResumable(imagesRef, imageAvatarDepoimento3);
 
+      await new Promise((resolve, reject) => {
+          uploadTask.on(
+              "state_changed",
+              (snapshot) => { },
+              (error) => {
+                  reject(error);
+              },
+              () => {
+                  resolve();
+              }
+          );
+      });
+      const url = await getDownloadURL(imagesRef);
+      return url;
+  }
+  return null;
+}
   return (
     <div className="py-10 bg-zinc-200 flex flex-col items-center justify-center">
       <h1 className="text-3xl">Depoimentos</h1>

@@ -9,33 +9,9 @@ import {
 import { MdLocationPin, MdEmail, MdCall } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
+
 
 function Footer() {
-  const [feedList, setFeedList] = useState([]);
-
-  async function getInstaFeed() {
-    try {
-      const fields = "media_url, media_type,permalink";
-      const response = await axios.get(
-        `https://graph.instagram.com/me/media`,
-        {
-          params: {
-            access_token: process.env.IMPRESILK_TOKEN,
-            fields,
-          },
-        }
-      );
-      setFeedList(response.data.data);
-    } catch (error) {
-      console.log("error:", error);
-    }
-  }
-
-  useEffect(() => {
-    getInstaFeed();
-  }, []);
-
 
   return (
     <footer className="w-full sm:h-fit pt-5 bg-bg-black-ct text-white">
@@ -137,51 +113,7 @@ function Footer() {
             <p>Depoimentos</p>
           </Link>
         </div>
-        <div className="mt-10 text-zinc-400 text-sm w-fit m-auto text-center hidden md:flex md:flex-col">
-          <h1 className="text-xl mb-5 text-white">
-            Atualizações do <strong className="font-bold ">instagram</strong>
-          </h1>
-
-          <div className="grid grid-cols-3 grid-rows-2  w-fit gap-3" >
-           <Link href="https://www.instagram.com/impresilk/" target="_blank">           
-            <div
-              className="bg-zinc-500 w-[150px] h-[135px] flex items-center justify-center object-cover hover:brightness-150 transiton-all duration-500"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(176,0,172,1) 39%, rgba(252,70,107,1) 100%, rgba(241,70,252,1) 100%)",
-              }}
-            >
-              {" "}
-              <FaInstagram size={50} color="white" />{" "}
-            </div>
-           </Link>
-            {feedList.slice(0, 5).map((item) => (
-              <div key={item.id}>
-               <Link href={item.permalink} target="_blank">
-                <div className="bg-zinc-500 w-[150px] h-[135px] flex items-center justify-center object-cover">
-
-                  {item.media_type === "VIDEO"
-                    ?
-                    <video controls autoPlay muted className="object-cover w-full h-full">
-                    <source src={item.media_url} />
-                  </video>
-                    :
-                    <img src={item.media_url} alt="imagem Instagram" className="object-cover w-full h-full" />
-                  }
-
-                </div>
-               </Link>
-              </div>
-
-            ))}
-          </div>
-
-          <p className="text-left mt-5">
-            Siga-nos <strong className="text-yellow-500">@impresilk</strong>
-          </p>
-        </div>
-
-
+       
       </div>
       <div className="bg-black text-xs py-8 h-full text-center">
         <p>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db, storage } from "@/services/firebaseConnection";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 
 export default function EditPortfolio() {
@@ -23,15 +23,6 @@ export default function EditPortfolio() {
   const [avatarUrlPortfolio7, setAvatarUrlPortfolio7] = useState("");
   const [avatarUrlPortfolio8, setAvatarUrlPortfolio8] = useState("");
   const [avatarUrlPortfolio9, setAvatarUrlPortfolio9] = useState("");
-  const [avatarUrlPortfolioFirebase, setAvatarUrlPortfolioFirebase] = useState("");
-  const [avatarUrlPortfolio2Firebase, setAvatarUrlPortfolio2Firebase] = useState("");
-  const [avatarUrlPortfolio3Firebase, setAvatarUrlPortfolio3Firebase] = useState("");
-  const [avatarUrlPortfolio4Firebase, setAvatarUrlPortfolio4Firebase] = useState("");
-  const [avatarUrlPortfolio5Firebase, setAvatarUrlPortfolio5Firebase] = useState("");
-  const [avatarUrlPortfolio6Firebase, setAvatarUrlPortfolio6Firebase] = useState("");
-  const [avatarUrlPortfolio7Firebase, setAvatarUrlPortfolio7Firebase] = useState("");
-  const [avatarUrlPortfolio8Firebase, setAvatarUrlPortfolio8Firebase] = useState("");
-  const [avatarUrlPortfolio9Firebase, setAvatarUrlPortfolio9Firebase] = useState("");
   const [portfolioImages, setPortfolioImages] = useState([]);
   const [portfolioImages2, setPortfolioImages2] = useState([]);
   const [portfolioImages3, setPortfolioImages3] = useState([]);
@@ -300,11 +291,11 @@ export default function EditPortfolio() {
     const portfolio = portfolioImages[0];
     const portfolioRef = doc(db, "portfolio", portfolioId);
 
-     handleUpload();
+     const imageUrl = await handleUpload();
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
-      imagem: avatarUrlPortfolioFirebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -318,16 +309,26 @@ export default function EditPortfolio() {
 
   async function handleUpload() {
     if (avatarUrlPortfolio !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio).then((snapshot) => {});
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId}`)
-      );
-      setAvatarUrlPortfolioFirebase(url);
-    } else {
-      return null;
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
 
   //2
 
@@ -336,10 +337,10 @@ export default function EditPortfolio() {
     setTextButton2("Enviando...");
     const portfolio = portfolioImages2[0];
     const portfolioRef = doc(db, "portfolio", portfolioId2);
-     handleUpload2();
+    const imageUrl = await handleUpload2();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio2Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -351,20 +352,29 @@ export default function EditPortfolio() {
       });
     setTextButton2("Enviado!");
   }
-
   async function handleUpload2() {
     if (avatarUrlPortfolio2 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId2}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio2).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId2}`)
-      );
-      setAvatarUrlPortfolio2Firebase(url);
-    } else {
-      return null;
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio2.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio2);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //3
   async function handleSave3(e) {
@@ -372,10 +382,10 @@ export default function EditPortfolio() {
     setTextButton3("Enviando...");
     const portfolio = portfolioImages3[0];
     const portfolioRef = doc(db, "portfolio", portfolioId3);
-     handleUpload3();
+    const imageUrl = await handleUpload3();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio3Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -390,17 +400,26 @@ export default function EditPortfolio() {
 
   async function handleUpload3() {
     if (avatarUrlPortfolio3 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId3}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio3).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId3}`)
-      );
-      setAvatarUrlPortfolio3Firebase(url);
-    } else {
-      return null;
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio3.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio3);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
 
   //4
   async function handleSave4(e) {
@@ -409,11 +428,11 @@ export default function EditPortfolio() {
     const portfolio = portfolioImages4[0];
     const portfolioRef = doc(db, "portfolio", portfolioId4);
 
-     handleUpload4();
+    const imageUrl = await handleUpload4();
 
     // Wait for handleUpload() to complete and set the download URL before updating Firestore
     const updatedData = {
-      imagem: avatarUrlPortfolio4Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -426,19 +445,28 @@ export default function EditPortfolio() {
   }
 
   async function handleUpload4() {
-    if (avatarUrlPortfolio !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId4}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio4).then(
-        (snapshot) => {}
-      );
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId4}`)
-      );
-      setAvatarUrlPortfolio4Firebase(url);
-    } else {
-      return null;
+    if (avatarUrlPortfolio4 !== null) {
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio4.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio4);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //5
   async function handleSave5(e) {
@@ -446,10 +474,10 @@ export default function EditPortfolio() {
     setTextButton5("Enviando...");
     const portfolio = portfolioImages5[0];
     const portfolioRef = doc(db, "portfolio", portfolioId5);
-    await handleUpload5();
+    const imageUrl = await handleUpload5();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio5Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -464,17 +492,27 @@ export default function EditPortfolio() {
 
   async function handleUpload5() {
     if (avatarUrlPortfolio5 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId5}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio5).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId5}`)
-      );
-      setAvatarUrlPortfolio5Firebase(url);
-    } else {
-      return null;
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio5.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio5);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //6
   async function handleSave6(e) {
@@ -482,10 +520,10 @@ export default function EditPortfolio() {
     setTextButton6("Enviando...");
     const portfolio = portfolioImages6[0];
     const portfolioRef = doc(db, "portfolio", portfolioId6);
-     handleUpload6();
+    const imageUrl = await handleUpload6();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio6Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -499,18 +537,28 @@ export default function EditPortfolio() {
   }
 
   async function handleUpload6() {
-    if (avatarUrlPortfolio6 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId6}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio6).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId6}`)
-      );
-      setAvatarUrlPortfolio6Firebase(url);
-    } else {
-      return null;
+    if (avatarUrlPortfolio !== null) {
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio6.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio6);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //7
   async function handleSave7(e) {
@@ -518,9 +566,9 @@ export default function EditPortfolio() {
     setTextButton7("Enviando...");
     const portfolio = portfolioImages7[0];
     const portfolioRef = doc(db, "portfolio", portfolioId7);
-     handleUpload7();
+    const imageUrl = await handleUpload7();
     const updatedData = {
-      imagem: avatarUrlPortfolio7Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
     await setDoc(portfolioRef, updatedData)
       .then(() => {
@@ -533,19 +581,28 @@ export default function EditPortfolio() {
   }
 
   async function handleUpload7() {
-    if (avatarUrlPortfolio7 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId7}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio7).then(
-        (snapshot) => {}
-      );
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId7}`)
-      );
-      setAvatarUrlPortfolio7Firebase(url);
-    } else {
-      return null;
+    if (avatarUrlPortfolio !== null) {
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio7.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio7);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //8
   async function handleSave8(e) {
@@ -553,10 +610,10 @@ export default function EditPortfolio() {
     setTextButton8("Enviando...");
     const portfolio = portfolioImages8[0];
     const portfolioRef = doc(db, "portfolio", portfolioId8);
-     handleUpload8();
+    const imageUrl = await handleUpload8();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio8Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -570,18 +627,28 @@ export default function EditPortfolio() {
   }
 
   async function handleUpload8() {
-    if (avatarUrlPortfolio8 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId8}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio8).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId8}`)
-      );
-      setAvatarUrlPortfolio8Firebase(url);
-    } else {
-      return null;
+    if (avatarUrlPortfolio !== null) {
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio8.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio8);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   //9
   async function handleSave9(e) {
@@ -589,10 +656,10 @@ export default function EditPortfolio() {
     setTextButton9("Enviando...");
     const portfolio = portfolioImages9[0];
     const portfolioRef = doc(db, "portfolio", portfolioId9);
-     handleUpload9();
+    const imageUrl = await handleUpload9();
     // atualizar apenas os campos que foram alterados
     const updatedData = {
-      imagem: avatarUrlPortfolio9Firebase || portfolio.imagem,
+      imagem: imageUrl || portfolio.imagem,
     };
 
     await setDoc(portfolioRef, updatedData)
@@ -606,18 +673,28 @@ export default function EditPortfolio() {
   }
 
   async function handleUpload9() {
-    if (avatarUrlPortfolio9 !== null) {
-      const imagesRef = ref(storage, `imagesPortfolio/${portfolioId9}`);
-      await uploadBytes(imagesRef, imageAvatarPortfolio9).then((snapshot) => {
-      });
-      const url = await getDownloadURL(
-        ref(storage, `imagesPortfolio/${portfolioId9}`)
-      );
-      setAvatarUrlPortfolio9Firebase(url);
-    } else {
-      return null;
+    if (avatarUrlPortfolio !== null) {
+        const imagesRef = ref(storage, `imagesPortfolio/${imageAvatarPortfolio9.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, imageAvatarPortfolio9);
+
+        await new Promise((resolve, reject) => {
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    resolve();
+                }
+            );
+        });
+        const url = await getDownloadURL(imagesRef);
+        return url;
     }
-  }
+    return null;
+}
+
 
   return (
     <div className="text-center">
