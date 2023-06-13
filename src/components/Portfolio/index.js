@@ -326,11 +326,11 @@ export default function Portfolio() {
             slidesToScroll={1}
           >
             {allImages.map((foto) => (
-              <div key={foto.id} className="relative w-full h-[700px]">
+              <div key={foto.id} className="relative w-full h-[1000px]">
                 <img
                   src={foto.imagem}
                   alt="image portfolio"
-                  className="w-full h-full absolute object-cover"
+                  className="w-11/12 h-full absolute object-cover"
                   style={{ objectPosition: "center" }}
                 />
               </div>
