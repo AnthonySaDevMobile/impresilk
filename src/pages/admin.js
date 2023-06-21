@@ -9,6 +9,7 @@ import EditProdutos from "@/components/EditProdutos";
 import EditPortfolio from "@/components/EditPortfolio";
 import EditDepoimentos from "@/components/EditDepoimentos";
 import { useAuth } from "@/utils/auth";
+import EditCategorias from "@/components/EditCategorias";
 export default function Admin() {
 useAuth();
   return (
@@ -31,7 +32,7 @@ useAuth();
 
         <EditCases />
         {/* Produtos */}
-
+        <EditCategorias/>
         <EditProdutos />
         {/* Portfólio */}
         <EditPortfolio />

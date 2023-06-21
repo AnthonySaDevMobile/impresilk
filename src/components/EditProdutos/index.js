@@ -11,18 +11,17 @@ import {
 import { db, storage } from "@/services/firebaseConnection";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-
 export default function EditProdutos() {
   const produtosRef = collection(db, "produtos");
+  const categoriasRef = collection(db, "categorias");
+  const [categorias, setCategorias] = useState([]);
   const [avatarUrlProdutos, setAvatarUrlProdutos] = useState("");
-  const [avatarUrlProdutosFirebase, setAvatarUrlProdutosFirebase] = useState("");
   const [imageAvatarProdutos, setImageAvatarProdutos] = useState(null);
   const [produtos, setProdutos] = useState([]);
   const [categoria, setCategoria] = useState("");
   const [descricao, setDescricao] = useState("");
   const [caracteristica, setCaracteristica] = useState("");
   const [textButton, setTextButton] = useState("Enviar alterações");
-
   useEffect(() => {
     const getProdutos = async () => {
       const data = await getDocs(produtosRef);
@@ -34,6 +33,13 @@ export default function EditProdutos() {
       setProdutos(produtosData);
     };
     getProdutos();
+  }, []);
+  useEffect(() => {
+    const getCategorias = async () => {
+      const data = await getDocs(categoriasRef);
+      setCategorias(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getCategorias();
   }, []);
 
   async function sendProdutos(e) {
@@ -48,10 +54,8 @@ export default function EditProdutos() {
     };
     await addDoc(collection(db, "produtos"), produtosData);
     setTextButton("Enviado!");
-
     const produtosQuery = query(collection(db, "produtos"));
     const produtosSnapshot = await getDocs(produtosQuery);
-
     const updateProdutos = produtosSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -63,7 +67,6 @@ export default function EditProdutos() {
     setImageAvatarProdutos(null);
     setAvatarUrlProdutos("");
   }
-
   async function handleUpload() {
     if (avatarUrlProdutos !== null) {
       const imagesRef = ref(storage, `imagesProdutos/${imageAvatarProdutos.name}`);
@@ -89,14 +92,12 @@ export default function EditProdutos() {
 
     return null;
   }
-
-
   async function deleteItem(id) {
 
     try {
       const itemRef = doc(db, "produtos", id);
       await deleteDoc(itemRef);
-  
+
       setProdutos((prevProdutos) =>
         prevProdutos.filter((item) => item.id !== id)
       );
@@ -154,12 +155,24 @@ export default function EditProdutos() {
             )}
           </label>
           <div className="flex flex-col gap-2">
-            <input
-              type="text"
-              placeholder="Categoria"
+            <div>
+              {categorias.map((item) => {
+                <div>
+                  <p>{item.id}</p>
+                </div>
+              })}
+            </div>
+            <select
               onChange={(e) => setCategoria(e.target.value)}
               className="p-2 rounded"
-            ></input>
+            >
+              <option value="">Selecione uma categoria</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.categoria}>
+                  {categoria.categoria}
+                </option>
+              ))}
+            </select>
             <input
               type="text"
               onChange={(e) => setCaracteristica(e.target.value)}
